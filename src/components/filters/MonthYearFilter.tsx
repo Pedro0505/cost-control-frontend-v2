@@ -1,0 +1,128 @@
+"use client";
+
+import { useEffect, useState, useRef } from "react";
+import { Button } from "@/shadcn/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shadcn/ui/select";
+import { getAvailableFinancialPeriods } from "@/services/monthly-balance";
+import { AvailableYear } from "@/types/availability";
+
+type Props = {
+    onApply: (year: number, month: number) => void;
+};
+
+export function MonthYearFilter({ onApply }: Props) {
+    const [data, setData] = useState<AvailableYear[]>([]);
+    const [year, setYear] = useState<number>();
+    const [month, setMonth] = useState<number>();
+
+    const initialized = useRef(false);
+
+    useEffect(() => {
+        async function load() {
+            try {
+                const response = await getAvailableFinancialPeriods();
+
+                if (!response || response.length === 0) {
+                    console.warn("Nenhum período financeiro disponível.");
+                    return;
+                }
+
+                setData(response);
+
+                if (initialized.current) return;
+
+                const today = new Date();
+                const currentYear = today.getFullYear();
+                const currentMonth = today.getMonth() + 1;
+
+                const yearMatch = response.find((y) => y.availableYear === currentYear);
+
+                if (yearMatch) {
+                    const monthMatch = yearMatch.availableMonth.find((m) => m.value === currentMonth);
+
+                    if (monthMatch) {
+                        setYear(currentYear);
+                        setMonth(currentMonth);
+                        onApply(currentYear, currentMonth);
+                        initialized.current = true;
+                        return;
+                    }
+                }
+
+                const fallbackYear = response[0];
+                if (fallbackYear && fallbackYear.availableMonth?.length > 0) {
+                    const fallbackMonth = fallbackYear.availableMonth[0];
+                    setYear(fallbackYear.availableYear);
+                    setMonth(fallbackMonth.value);
+                    onApply(fallbackYear.availableYear, fallbackMonth.value);
+                }
+
+                initialized.current = true;
+            } catch (error) {
+                console.error("Erro ao carregar períodos:", error);
+            }
+        }
+
+        load();
+    }, []);
+
+    const availableMonths = data.find((y) => y.availableYear === year)?.availableMonth ?? [];
+
+    if (data.length === 0) return null;
+
+    return (
+        <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+                <label className="text-sm text-muted-foreground">Ano</label>
+                <Select
+                    value={year?.toString()}
+                    onValueChange={(v) => {
+                        const newYear = Number(v);
+                        setYear(newYear);
+                        const firstMonth = data.find(y => y.availableYear === newYear)?.availableMonth[0];
+                        setMonth(firstMonth?.value);
+                    }}
+                >
+                    <SelectTrigger className="w-28">
+                        <SelectValue placeholder="Ano" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {data.map((item) => (
+                            <SelectItem key={item.availableYear} value={item.availableYear.toString()}>
+                                {item.availableYear}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </div>
+
+            <div className="flex items-center gap-2">
+                <label className="text-sm text-muted-foreground">Mês</label>
+                <Select
+                    disabled={!year}
+                    value={month?.toString()}
+                    onValueChange={(v) => setMonth(Number(v))}
+                >
+                    <SelectTrigger className="w-44">
+                        <SelectValue placeholder="Mês" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {availableMonths.map((m) => (
+                            <SelectItem key={m.value} value={m.value.toString()}>
+                                {m.name}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </div>
+
+            <Button
+                className="h-10"
+                disabled={!year || !month}
+                onClick={() => onApply(year!, month!)}
+            >
+                Filtrar
+            </Button>
+        </div>
+    );
+}
