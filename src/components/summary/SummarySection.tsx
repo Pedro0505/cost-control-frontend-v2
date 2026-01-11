@@ -1,7 +1,7 @@
 import { useFinancialBalance } from "@/hooks/use-financial-balance";
-import {ArrowDownIcon, ArrowUpIcon, WalletIcon} from "lucide-react";
-import {SummaryCard} from "@/components/summary/SummaryCards";
-import {MoneySummary} from "@/types/money-summary";
+import { ArrowDownIcon, ArrowUpIcon, WalletIcon } from "lucide-react";
+import { SummaryCard } from "@/components/summary/SummaryCards";
+import { MoneySummary } from "@/types/money-summary";
 
 type Props = {
     year: number;

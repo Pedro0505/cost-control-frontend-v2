@@ -1,4 +1,4 @@
-import {Card, CardContent, CardHeader, CardTitle} from "@/shadcn/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shadcn/ui/card";
 import React from "react";
 
 type SummaryCardProps = {

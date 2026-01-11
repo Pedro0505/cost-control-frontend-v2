@@ -1,5 +1,5 @@
-import {api} from "@/services/http";
-import {BalanceSummary} from "@/types/financial-balance";
+import { api } from "@/services/http";
+import { BalanceSummary } from "@/types/financial-balance";
 
 export async function getFinancialBalanceByMonth(
     year: number,

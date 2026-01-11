@@ -58,12 +58,12 @@ export function ImportRecurrentModal({ onImportSuccess }: { onImportSuccess: () 
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button variant="outline" className="gap-2 border-primary text-primary hover:bg-primary/5">
-                    <RefreshCw className="w-4 h-4" /> Importar Recorrentes
+                    <RefreshCw className="w-4 h-4" /> Transferir Recorrentes
                 </Button>
             </DialogTrigger>
             <DialogContent className="max-w-3xl">
                 <DialogHeader>
-                    <DialogTitle>Importar Custos Recorrentes</DialogTitle>
+                    <DialogTitle>Transferir Custos Recorrentes</DialogTitle>
                 </DialogHeader>
 
                 <div className="grid grid-cols-11 gap-4 items-center py-6">

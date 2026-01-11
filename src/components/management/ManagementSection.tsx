@@ -87,7 +87,7 @@ export function ManagementSection() {
                                         type="text"
                                         placeholder="0.00"
                                         value={pjContractForm.hourlyRate}
-                                        onChange={e => setPjContractForm({...pjContractForm, hourlyRate: e.target.value.replace(/[^0-9.,]/g, '')})}
+                                        onChange={e => setPjContractForm({ ...pjContractForm, hourlyRate: e.target.value.replace(/[^0-9.,]/g, '') })}
                                     />
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
@@ -96,7 +96,7 @@ export function ManagementSection() {
                                         <Input
                                             type="date"
                                             value={pjContractForm.contractInitDate}
-                                            onChange={e => setPjContractForm({...pjContractForm, contractInitDate: e.target.value})}
+                                            onChange={e => setPjContractForm({ ...pjContractForm, contractInitDate: e.target.value })}
                                         />
                                     </div>
                                     <div className="space-y-2">
@@ -104,7 +104,7 @@ export function ManagementSection() {
                                         <Input
                                             type="date"
                                             value={pjContractForm.contractEndDate}
-                                            onChange={e => setPjContractForm({...pjContractForm, contractEndDate: e.target.value})}
+                                            onChange={e => setPjContractForm({ ...pjContractForm, contractEndDate: e.target.value })}
                                         />
                                     </div>
                                 </div>
@@ -116,7 +116,7 @@ export function ManagementSection() {
                             </div>
 
                             <div className="pt-6 border-t border-gray-100 flex-1 flex flex-col">
-                                <h4 className="text-sm font-bold text-gray-500 mb-4 uppercase">Contratos Ativos</h4>
+                                <h4 className="text-sm font-bold text-gray-500 mb-4 uppercase">Contratos Cadastrados</h4>
                                 <div className="flex-1">
                                     <Table>
                                         <TableBody>
@@ -165,7 +165,7 @@ export function ManagementSection() {
                                     </div>
                                     <div className="space-y-2">
                                         <Label>Descrição</Label>
-                                        <Input placeholder="Ex: Salário" value={incomeForm.description} onChange={e => setIncomeForm({...incomeForm, description: e.target.value})} />
+                                        <Input placeholder="Ex: Salário" value={incomeForm.description} onChange={e => setIncomeForm({ ...incomeForm, description: e.target.value })} />
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
@@ -175,12 +175,12 @@ export function ManagementSection() {
                                             type="text"
                                             placeholder="0.00"
                                             value={incomeForm.amount}
-                                            onChange={e => setIncomeForm({...incomeForm, amount: e.target.value.replace(/[^0-9.,]/g, '')})}
+                                            onChange={e => setIncomeForm({ ...incomeForm, amount: e.target.value.replace(/[^0-9.,]/g, '') })}
                                         />
                                     </div>
                                     <div className="space-y-2">
                                         <Label>Data</Label>
-                                        <Input type="date" value={incomeForm.referenceDate} onChange={e => setIncomeForm({...incomeForm, referenceDate: e.target.value})} />
+                                        <Input type="date" value={incomeForm.referenceDate} onChange={e => setIncomeForm({ ...incomeForm, referenceDate: e.target.value })} />
                                     </div>
                                 </div>
                                 <div className="min-h-[68px]">
@@ -190,7 +190,7 @@ export function ManagementSection() {
                                             <Input
                                                 type="text"
                                                 value={incomeForm.businessDays}
-                                                onChange={e => setIncomeForm({...incomeForm, businessDays: e.target.value.replace(/[^0-9]/g, '')})}
+                                                onChange={e => setIncomeForm({ ...incomeForm, businessDays: e.target.value.replace(/[^0-9]/g, '') })}
                                             />
                                         </div>
                                     ) : (

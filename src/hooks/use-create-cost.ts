@@ -1,6 +1,6 @@
 import { useState } from "react";
-import {createCost} from "@/services/cost";
-import {CreateCostInput, CreateCostResponse} from "@/types/cost";
+import { createCost } from "@/services/cost";
+import { CreateCostInput, CreateCostResponse } from "@/types/cost";
 
 export function useCreateCost() {
     const [loading, setLoading] = useState(false);

@@ -1,0 +1,6 @@
+# Ignorar tudo
+/*
+
+# Abrir exceção apenas para a pasta src
+!/src
+!/package.json

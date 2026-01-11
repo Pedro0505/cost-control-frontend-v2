@@ -12,8 +12,8 @@ type Props = {
 
 export function MonthYearFilter({ onApply }: Props) {
     const [data, setData] = useState<AvailableYear[]>([]);
-    const [year, setYear] = useState<number>();
-    const [month, setMonth] = useState<number>();
+    const [year, setYear] = useState<number | undefined>();
+    const [month, setMonth] = useState<number | undefined>();
 
     const initialized = useRef(false);
 
@@ -22,10 +22,7 @@ export function MonthYearFilter({ onApply }: Props) {
             try {
                 const response = await getAvailableFinancialPeriods();
 
-                if (!response || response.length === 0) {
-                    console.warn("Nenhum período financeiro disponível.");
-                    return;
-                }
+                if (!response || response.length === 0) return;
 
                 setData(response);
 
@@ -39,7 +36,6 @@ export function MonthYearFilter({ onApply }: Props) {
 
                 if (yearMatch) {
                     const monthMatch = yearMatch.availableMonth.find((m) => m.value === currentMonth);
-
                     if (monthMatch) {
                         setYear(currentYear);
                         setMonth(currentMonth);
@@ -59,22 +55,22 @@ export function MonthYearFilter({ onApply }: Props) {
 
                 initialized.current = true;
             } catch (error) {
-                console.error("Erro ao carregar períodos:", error);
+                console.error(error);
             }
         }
 
         load();
-    }, []);
+    }, [onApply]);
 
     const availableMonths = data.find((y) => y.availableYear === year)?.availableMonth ?? [];
-
-    if (data.length === 0) return null;
+    const hasData = data.length > 0;
 
     return (
         <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-                <label className="text-sm text-muted-foreground">Ano</label>
+                <label className="text-sm text-muted-foreground font-medium">Ano</label>
                 <Select
+                    disabled={!hasData}
                     value={year?.toString()}
                     onValueChange={(v) => {
                         const newYear = Number(v);
@@ -83,8 +79,8 @@ export function MonthYearFilter({ onApply }: Props) {
                         setMonth(firstMonth?.value);
                     }}
                 >
-                    <SelectTrigger className="w-28">
-                        <SelectValue placeholder="Ano" />
+                    <SelectTrigger className="w-28 bg-white">
+                        <SelectValue placeholder="—" />
                     </SelectTrigger>
                     <SelectContent>
                         {data.map((item) => (
@@ -97,14 +93,14 @@ export function MonthYearFilter({ onApply }: Props) {
             </div>
 
             <div className="flex items-center gap-2">
-                <label className="text-sm text-muted-foreground">Mês</label>
+                <label className="text-sm text-muted-foreground font-medium">Mês</label>
                 <Select
-                    disabled={!year}
+                    disabled={!year || availableMonths.length === 0}
                     value={month?.toString()}
                     onValueChange={(v) => setMonth(Number(v))}
                 >
-                    <SelectTrigger className="w-44">
-                        <SelectValue placeholder="Mês" />
+                    <SelectTrigger className="w-44 bg-white">
+                        <SelectValue placeholder="—" />
                     </SelectTrigger>
                     <SelectContent>
                         {availableMonths.map((m) => (
@@ -117,7 +113,7 @@ export function MonthYearFilter({ onApply }: Props) {
             </div>
 
             <Button
-                className="h-10"
+                className="h-10 px-6 font-bold"
                 disabled={!year || !month}
                 onClick={() => onApply(year!, month!)}
             >

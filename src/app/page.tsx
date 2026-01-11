@@ -35,14 +35,38 @@ export default function Home() {
                 </div>
             </section>
 
-            {year && month && (
-                <>
-                    <SummarySection year={year} month={month} overrideSummary={summaryOverride} />
-                    <CreateCostSection year={year} month={month} onSummaryUpdate={handleCostCreated} />
-                    <CostTableSection key={refreshTrigger} year={year} month={month} onSummaryUpdate={setSummaryOverride} />
-                </>
+            {year && month ? (
+                <div className="space-y-0">
+                    <SummarySection
+                        year={year}
+                        month={month}
+                        overrideSummary={summaryOverride}
+                    />
+
+                    <CreateCostSection
+                        year={year}
+                        month={month}
+                        onSummaryUpdate={handleCostCreated}
+                    />
+
+                    <CostTableSection
+                        key={`${year}-${month}-${refreshTrigger}`}
+                        year={year}
+                        month={month}
+                        onSummaryUpdate={setSummaryOverride}
+                    />
+                </div>
+            ) : (
+                <div className="max-w-7xl mx-auto px-6 py-20 text-center">
+                    <p className="text-gray-400 font-medium">
+                        Selecione um período para visualizar os dados financeiros.
+                    </p>
+                </div>
             )}
-            <ManagementSection />
+
+            <div className="mt-6">
+                <ManagementSection />
+            </div>
         </main>
     );
 }

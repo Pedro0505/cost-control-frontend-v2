@@ -73,9 +73,9 @@ export function CostTableSection({ year, month, onSummaryUpdate }: Props) {
                                 <TableRow key={cost.id}>
                                     {editingId === cost.id && editForm ? (
                                         <>
-                                            <TableCell><Input value={editForm.description} onChange={e => setEditForm({...editForm, description: e.target.value})} /></TableCell>
+                                            <TableCell><Input value={editForm.description} onChange={e => setEditForm({ ...editForm, description: e.target.value })} /></TableCell>
                                             <TableCell>
-                                                <Select value={editForm.calculationType} onValueChange={(v: "FIXED" | "PERCENTAGE") => setEditForm({...editForm, calculationType: v})}>
+                                                <Select value={editForm.calculationType} onValueChange={(v: "FIXED" | "PERCENTAGE") => setEditForm({ ...editForm, calculationType: v })}>
                                                     <SelectTrigger><SelectValue /></SelectTrigger>
                                                     <SelectContent>
                                                         <SelectItem value="FIXED">FIXED</SelectItem>
@@ -83,10 +83,10 @@ export function CostTableSection({ year, month, onSummaryUpdate }: Props) {
                                                     </SelectContent>
                                                 </Select>
                                             </TableCell>
-                                            <TableCell><Input type="number" value={editForm.amount} onChange={e => setEditForm({...editForm, amount: Number(e.target.value)})} /></TableCell>
-                                            <TableCell><Input type="number" disabled={editForm.calculationType === "FIXED"} value={editForm.calculationType === "FIXED" ? "" : editForm.percentage} onChange={e => setEditForm({...editForm, percentage: Number(e.target.value)})} /></TableCell>
-                                            <TableCell><div className="flex justify-center"><Checkbox checked={editForm.recurrent} onCheckedChange={v => setEditForm({...editForm, recurrent: !!v})} /></div></TableCell>
-                                            <TableCell><div className="flex justify-center"><Checkbox checked={editForm.paid} onCheckedChange={v => setEditForm({...editForm, paid: !!v})} /></div></TableCell>
+                                            <TableCell><Input type="number" value={editForm.amount} onChange={e => setEditForm({ ...editForm, amount: Number(e.target.value) })} /></TableCell>
+                                            <TableCell><Input type="number" disabled={editForm.calculationType === "FIXED"} value={editForm.calculationType === "FIXED" ? "" : editForm.percentage} onChange={e => setEditForm({ ...editForm, percentage: Number(e.target.value) })} /></TableCell>
+                                            <TableCell><div className="flex justify-center"><Checkbox checked={editForm.recurrent} onCheckedChange={v => setEditForm({ ...editForm, recurrent: !!v })} /></div></TableCell>
+                                            <TableCell><div className="flex justify-center"><Checkbox checked={editForm.paid} onCheckedChange={v => setEditForm({ ...editForm, paid: !!v })} /></div></TableCell>
                                             <TableCell className="text-right space-x-2">
                                                 <Button size="icon" variant="ghost" onClick={() => handleSave(cost.id)}><Check className="w-4 h-4 text-green-600" /></Button>
                                                 <Button size="icon" variant="ghost" onClick={() => { setEditingId(null); setEditForm(null); }}><X className="w-4 h-4 text-red-600" /></Button>

@@ -4,53 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d492355-a6fd-4053-909c-39fd8ced7b26" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/credit-card/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/costs/CostTableSection.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/costs/CreateCostSection.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/costs/ImportRecurrentModal.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/filters/MonthYearFilter.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/header/Header.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/management/ManagementSection.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/management/Pagination.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/summary/SummaryCards.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/summary/SummarySection.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/use-contracts.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/use-costs.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/use-create-cost.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/use-create-income.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/use-create-pj-contract.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/use-delete-income.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/use-financial-balance.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/use-import-costs.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/use-incomes.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/utils.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/contract.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/cost.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/financial-balance.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/http.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/income.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/monthly-balance.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/availability.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/contract.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/cost-import.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/cost.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/financial-balance.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/income.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/management.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/money-summary.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/pj-work.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/date-utils.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/error-handler.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/string-utils.ts" afterDir="false" />
+    <list default="true" id="5d492355-a6fd-4053-909c-39fd8ced7b26" name="Changes" comment="feat: remove wrong file from git">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,25 +34,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;js.last.introduce.type&quot;: &quot;CONST&quot;,
-    &quot;last_opened_file_path&quot;: &quot;//wsl.localhost/Ubuntu-20.04/home/pedro/cost-control-frontend-v2/src/types&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;wsl://Ubuntu-20.04@/home/pedro/.nvm/versions/node/v20.18.0/bin/node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.nodejs&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;\\\\wsl.localhost\\Ubuntu-20.04\\home\\pedro\\cost-control-frontend-v2\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "git-widget-placeholder": "main",
+    "js.last.introduce.type": "CONST",
+    "last_opened_file_path": "//wsl.localhost/Ubuntu-20.04/home/pedro/cost-control-frontend-v2/src/types",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "wsl://Ubuntu-20.04@/home/pedro/.nvm/versions/node/v20.18.0/bin/node",
+    "nodejs_package_manager_path": "npm",
+    "npm.dev.executor": "Run",
+    "settings.editor.selected.configurable": "settings.nodejs",
+    "ts.external.directory.path": "\\\\wsl.localhost\\Ubuntu-20.04\\home\\pedro\\cost-control-frontend-v2\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="\\wsl.localhost\Ubuntu-20.04\home\pedro\cost-control-frontend-v2\src\types" />
@@ -154,11 +110,25 @@
       <workItem from="1767871132252" duration="817000" />
       <workItem from="1767886442369" duration="1729000" />
       <workItem from="1767913699712" duration="1245000" />
-      <workItem from="1768048411612" duration="11179000" />
+      <workItem from="1768048411612" duration="13121000" />
     </task>
+    <task id="LOCAL-00001" summary="feat: remove wrong file from git">
+      <option name="closed" value="true" />
+      <created>1768083802554</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1768083802554</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: initial commit" />
+    <MESSAGE value="feat: remove wrong file from git" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: remove wrong file from git" />
   </component>
 </project>

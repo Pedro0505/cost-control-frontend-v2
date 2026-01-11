@@ -1,5 +1,5 @@
 import { api } from "@/services/http";
-import {Cost, UpdateCostInput, MutationCostResponse, CreateCostInput, CreateCostResponse} from "@/types/cost";
+import { Cost, UpdateCostInput, MutationCostResponse, CreateCostInput, CreateCostResponse } from "@/types/cost";
 
 export async function createCost(
     input: CreateCostInput

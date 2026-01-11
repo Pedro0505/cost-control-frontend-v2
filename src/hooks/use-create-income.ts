@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
-import {CreateIncomeInput} from "@/types/income";
-import {createIncome} from "@/services/income";
+import { CreateIncomeInput } from "@/types/income";
+import { createIncome } from "@/services/income";
 
 export function useCreateIncome() {
     const [loading, setLoading] = useState(false);
