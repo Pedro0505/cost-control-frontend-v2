@@ -1,3 +1,5 @@
+export type ContractKind = "PJ" | "CLT";
+
 export interface PjContractInputCreateDTO {
     hourlyRate: number;
     contractInitDate: string;
@@ -20,4 +22,18 @@ export interface PageResponse<T> {
     totalElements: number;
     size: number;
     number: number;
+}
+
+export interface BaseContractRequest {
+    contractInitDate: string;
+    contractEndDate: string | null;
+}
+
+export interface PjContractInputCreateDTO extends BaseContractRequest {
+    hourlyRate: number;
+}
+
+export interface CltContractRequest extends BaseContractRequest {
+    netSalary: number;
+    grossSalary: number;
 }

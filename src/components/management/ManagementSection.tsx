@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+"use client";
+
+import { useState } from "react";
 import { useCreateIncome } from "@/hooks/use-create-income";
 import { useIncomes } from "@/hooks/use-incomes";
 import { useDeleteIncome } from "@/hooks/use-delete-income";
 import { useContracts } from "@/hooks/use-contracts";
 import { useCreatePjContract } from "@/hooks/use-create-pj-contract";
+import { useCreateCltContract } from "@/hooks/use-create-clt-contract";
 import { Button } from "@/shadcn/ui/button";
 import { Input } from "@/shadcn/ui/input";
 import { Label } from "@/shadcn/ui/label";
@@ -12,16 +15,20 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Pagination } from "@/components/management/Pagination";
 import { Trash2, FileText } from "lucide-react";
 import { ContractType } from "@/types/income";
+import { ContractKind } from "@/types/contract";
 import { formatDateString } from "@/utils/date-utils";
 
 export function ManagementSection() {
     const { execute: incomeExecute, loading: incomeLoading } = useCreateIncome();
     const { execute: deleteIncomeExec } = useDeleteIncome();
     const { data: incomeData, page: incomePage, setPage: setIncomePage, refresh: refreshIncomes } = useIncomes(0, 5);
-    const { execute: contractExecute, loading: contractLoading } = useCreatePjContract();
+
+    const { execute: pjExecute, loading: pjLoading } = useCreatePjContract();
+    const { execute: cltExecute, loading: cltLoading } = useCreateCltContract();
     const { data: contractData, page: contractPage, setPage: setContractPage, refresh: refreshContracts } = useContracts(0, 5);
 
     const [contractType, setContractType] = useState<ContractType>("PJ");
+    const [registerContractKind, setRegisterContractKind] = useState<ContractKind>("PJ");
 
     const [incomeForm, setIncomeForm] = useState({
         amount: "",
@@ -30,25 +37,46 @@ export function ManagementSection() {
         businessDays: ""
     });
 
-    const [pjContractForm, setPjContractForm] = useState({
+    const [contractForm, setContractForm] = useState({
         hourlyRate: "",
+        netSalary: "",
+        grossSalary: "",
         contractInitDate: new Date().toISOString().split('T')[0],
         contractEndDate: ""
     });
 
-    useEffect(() => {
-        if (incomeData && incomeData.content.length === 0 && incomePage > 0) setIncomePage(incomePage - 1);
-    }, [incomeData, incomePage, setIncomePage]);
+    const handleContractSubmit = async () => {
+        const baseData = {
+            contractInitDate: contractForm.contractInitDate,
+            contractEndDate: contractForm.contractEndDate || null
+        };
 
-    useEffect(() => {
-        if (contractData && contractData.content.length === 0 && contractPage > 0) setContractPage(contractPage - 1);
-    }, [contractData, contractPage, setContractPage]);
+        if (registerContractKind === "PJ") {
+            await pjExecute({
+                ...baseData,
+                hourlyRate: parseFloat(contractForm.hourlyRate.replace(',', '.'))
+            });
+        } else {
+            await cltExecute({
+                ...baseData,
+                netSalary: parseFloat(contractForm.netSalary.replace(',', '.')),
+                grossSalary: parseFloat(contractForm.grossSalary.replace(',', '.'))
+            });
+        }
+
+        setContractForm({
+            hourlyRate: "", netSalary: "", grossSalary: "",
+            contractInitDate: new Date().toISOString().split('T')[0], contractEndDate: ""
+        });
+        await refreshContracts();
+    };
 
     const handleIncomeSubmit = async () => {
         await incomeExecute({
             amount: parseFloat(incomeForm.amount.replace(',', '.')),
             description: incomeForm.description,
             referenceDate: incomeForm.referenceDate,
+            contractType: contractType,
             businessDays: contractType === "PJ" ? parseInt(incomeForm.businessDays) : null
         });
         setIncomeForm({ amount: "", description: "", referenceDate: new Date().toISOString().split('T')[0], businessDays: "" });
@@ -62,15 +90,7 @@ export function ManagementSection() {
         }
     };
 
-    const handleContractSubmit = async () => {
-        await contractExecute({
-            hourlyRate: parseFloat(pjContractForm.hourlyRate.replace(',', '.')),
-            contractInitDate: pjContractForm.contractInitDate,
-            contractEndDate: pjContractForm.contractEndDate || null
-        });
-        setPjContractForm({ hourlyRate: "", contractInitDate: new Date().toISOString().split('T')[0], contractEndDate: "" });
-        await refreshContracts();
-    };
+    const isContractLoading = pjLoading || cltLoading;
 
     return (
         <section className="w-full bg-[#F1F2F9] pb-10">
@@ -79,38 +99,78 @@ export function ManagementSection() {
 
                     <div className="p-8 bg-white rounded-xl shadow-sm border flex flex-col min-h-[720px]">
                         <div className="flex-1 flex flex-col">
-                            <h3 className="text-lg font-bold text-gray-700 mb-6 text-center">Cadastrar Contrato PJ</h3>
+                            <h3 className="text-lg font-bold text-gray-700 mb-6 text-center">Cadastrar Contrato</h3>
+
                             <div className="space-y-4 mb-8">
                                 <div className="space-y-2">
-                                    <Label>Valor da Hora (R$)</Label>
-                                    <Input
-                                        type="text"
-                                        placeholder="0.00"
-                                        value={pjContractForm.hourlyRate}
-                                        onChange={e => setPjContractForm({ ...pjContractForm, hourlyRate: e.target.value.replace(/[^0-9.,]/g, '') })}
-                                    />
+                                    <Label>Tipo de Contrato</Label>
+                                    <Select value={registerContractKind} onValueChange={(v: ContractKind) => setRegisterContractKind(v)}>
+                                        <SelectTrigger><SelectValue /></SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="PJ">PJ</SelectItem>
+                                            <SelectItem value="CLT">CLT</SelectItem>
+                                        </SelectContent>
+                                    </Select>
                                 </div>
+
+                                {registerContractKind === "PJ" ? (
+                                    <div className="space-y-2">
+                                        <Label>Valor da Hora (R$)</Label>
+                                        <Input
+                                            type="text"
+                                            placeholder="0.00"
+                                            value={contractForm.hourlyRate}
+                                            onChange={e => setContractForm({ ...contractForm, hourlyRate: e.target.value.replace(/[^0-9.,]/g, '') })}
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <Label>Salário Bruto (R$)</Label>
+                                            <Input
+                                                type="text"
+                                                placeholder="0.00"
+                                                value={contractForm.grossSalary}
+                                                onChange={e => setContractForm({ ...contractForm, grossSalary: e.target.value.replace(/[^0-9.,]/g, '') })}
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label>Salário Líquido (R$)</Label>
+                                            <Input
+                                                type="text"
+                                                placeholder="0.00"
+                                                value={contractForm.netSalary}
+                                                onChange={e => setContractForm({ ...contractForm, netSalary: e.target.value.replace(/[^0-9.,]/g, '') })}
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <Label>Data Início</Label>
                                         <Input
                                             type="date"
-                                            value={pjContractForm.contractInitDate}
-                                            onChange={e => setPjContractForm({ ...pjContractForm, contractInitDate: e.target.value })}
+                                            value={contractForm.contractInitDate}
+                                            onChange={e => setContractForm({ ...contractForm, contractInitDate: e.target.value })}
                                         />
                                     </div>
                                     <div className="space-y-2">
                                         <Label>Data Fim (Opcional)</Label>
                                         <Input
                                             type="date"
-                                            value={pjContractForm.contractEndDate}
-                                            onChange={e => setPjContractForm({ ...pjContractForm, contractEndDate: e.target.value })}
+                                            value={contractForm.contractEndDate}
+                                            onChange={e => setContractForm({ ...contractForm, contractEndDate: e.target.value })}
                                         />
                                     </div>
                                 </div>
                                 <div className="flex justify-center pt-2">
-                                    <Button className="w-full max-w-[200px]" onClick={handleContractSubmit} disabled={contractLoading || !pjContractForm.hourlyRate}>
-                                        {contractLoading ? "Enviando..." : "Cadastrar Contrato"}
+                                    <Button
+                                        className="w-full max-w-[200px]"
+                                        onClick={handleContractSubmit}
+                                        disabled={isContractLoading || (registerContractKind === "PJ" ? !contractForm.hourlyRate : !contractForm.netSalary)}
+                                    >
+                                        {isContractLoading ? "Enviando..." : "Cadastrar Contrato"}
                                     </Button>
                                 </div>
                             </div>
@@ -134,7 +194,10 @@ export function ManagementSection() {
                                                         </div>
                                                     </TableCell>
                                                     <TableCell className="py-2 text-right font-bold text-gray-600">
-                                                        R$ {contract.hourlyRate?.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}/h
+                                                        {contract.contractType === "PJ"
+                                                            ? `R$ ${contract.hourlyRate?.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}/h`
+                                                            : `R$ ${contract.netSalary?.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
+                                                        }
                                                     </TableCell>
                                                 </TableRow>
                                             ))}

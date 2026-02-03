@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createPjContract } from "@/services/contract";
+import { contractService } from "@/services/contract";
 import { PjContractInputCreateDTO } from "@/types/contract";
 
 export function useCreatePjContract() {
@@ -7,7 +7,7 @@ export function useCreatePjContract() {
     const execute = async (data: PjContractInputCreateDTO) => {
         setLoading(true);
         try {
-            await createPjContract(data);
+            await contractService.createPj(data);
         } finally {
             setLoading(false);
         }

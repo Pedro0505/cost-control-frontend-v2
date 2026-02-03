@@ -4,7 +4,8 @@ export interface CreateIncomeInput {
     amount: number;
     description: string;
     referenceDate: string;
-    businessDays?: number | null;
+    contractType: "PJ" | "CLT";
+    businessDays: number | null;
 }
 
 export interface Income {

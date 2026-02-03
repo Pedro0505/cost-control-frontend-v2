@@ -16,3 +16,10 @@ export const formatDateString = (dateString: string): string => {
     if (!dateString) return "";
     return dateString.split('-').reverse().join('-').replaceAll('-', '/');
 };
+
+export const allMonths = [
+    { v: "1", n: "Janeiro" }, { v: "2", n: "Fevereiro" }, { v: "3", n: "Março" },
+    { v: "4", n: "Abril" }, { v: "5", n: "Maio" }, { v: "6", n: "Junho" },
+    { v: "7", n: "Julho" }, { v: "8", n: "Agosto" }, { v: "9", n: "Setembro" },
+    { v: "10", n: "Outubro" }, { v: "11", n: "Novembro" }, { v: "12", n: "Dezembro" }
+];
