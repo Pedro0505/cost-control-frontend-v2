@@ -18,8 +18,8 @@ export const formatDateString = (dateString: string): string => {
 };
 
 export const allMonths = [
-    { v: "1", n: "Janeiro" }, { v: "2", n: "Fevereiro" }, { v: "3", n: "Março" },
-    { v: "4", n: "Abril" }, { v: "5", n: "Maio" }, { v: "6", n: "Junho" },
-    { v: "7", n: "Julho" }, { v: "8", n: "Agosto" }, { v: "9", n: "Setembro" },
-    { v: "10", n: "Outubro" }, { v: "11", n: "Novembro" }, { v: "12", n: "Dezembro" }
+    { month_value: "1", month_name: "Janeiro" }, { month_value: "2", month_name: "Fevereiro" }, { month_value: "3", month_name: "Março" },
+    { month_value: "4", month_name: "Abril" }, { month_value: "5", month_name: "Maio" }, { month_value: "6", month_name: "Junho" },
+    { month_value: "7", month_name: "Julho" }, { month_value: "8", month_name: "Agosto" }, { month_value: "9", month_name: "Setembro" },
+    { month_value: "10", month_name: "Outubro" }, { month_value: "11", month_name: "Novembro" }, { month_value: "12", month_name: "Dezembro" }
 ];

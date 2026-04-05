@@ -28,3 +28,32 @@ export interface EvolutionGraphState {
     data: EvolutionChartPoint[];
     categories: string[];
 }
+
+export interface InvoiceSummaryByYearMonth {
+    invoiceMonth: number;
+    invoiceYear: number;
+    total: number;
+}
+
+export interface InvoiceGraphParams {
+    invoiceStartYear?: number;
+    invoiceStartMonth?: number;
+    invoiceEndYear?: number;
+    invoiceEndMonth?: number;
+}
+
+export interface InvoiceChartPoint {
+    dateLabel: string;
+    originalDate: string;
+    total: number;
+}
+
+export interface MonthOption {
+    name: string;
+    value: number;
+}
+
+export interface AvailableMonthByYear {
+    availableYear: number;
+    availableMonth: MonthOption[];
+}

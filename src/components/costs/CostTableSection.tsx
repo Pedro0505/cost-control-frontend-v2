@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { useCosts } from "@/hooks/use-costs";
 import { MoneySummary } from "@/types/money-summary";
@@ -26,7 +28,8 @@ export function CostTableSection({ year, month, onSummaryUpdate }: Props) {
             description: cost.description,
             calculationType: cost.calculationType,
             amount: cost.amount,
-            percentage: cost.percentage || 0,
+
+            percentage: cost.percentage ?? 0,
             recurrent: cost.recurrent,
             paid: cost.paid,
         });
@@ -34,7 +37,13 @@ export function CostTableSection({ year, month, onSummaryUpdate }: Props) {
 
     const handleSave = async (id: number) => {
         if (!editForm) return;
-        await edit(id, editForm, (newSummary) => {
+
+        const payload = {
+            ...editForm,
+            percentage: editForm.calculationType === "FIXED" ? 0 : editForm.percentage
+        };
+
+        await edit(id, payload, (newSummary) => {
             onSummaryUpdate(newSummary);
         });
         setEditingId(null);
@@ -52,9 +61,7 @@ export function CostTableSection({ year, month, onSummaryUpdate }: Props) {
     return (
         <section className="w-full bg-[#F1F2F9] pb-10">
             <div className="max-w-7xl mx-auto px-6">
-                <h2 className="text-xl font-bold text-gray-700 mb-4 text-left">
-                    Tabela de Gastos
-                </h2>
+                <h2 className="text-xl font-bold text-gray-700 mb-4">Tabela de Gastos</h2>
                 <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
                     <Table>
                         <TableHeader>
@@ -73,9 +80,19 @@ export function CostTableSection({ year, month, onSummaryUpdate }: Props) {
                                 <TableRow key={cost.id}>
                                     {editingId === cost.id && editForm ? (
                                         <>
-                                            <TableCell><Input value={editForm.description} onChange={e => setEditForm({ ...editForm, description: e.target.value })} /></TableCell>
                                             <TableCell>
-                                                <Select value={editForm.calculationType} onValueChange={(v: "FIXED" | "PERCENTAGE") => setEditForm({ ...editForm, calculationType: v })}>
+                                                <Input
+                                                    value={editForm.description}
+                                                    onChange={e => setEditForm({ ...editForm, description: e.target.value })}
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <Select
+                                                    value={editForm.calculationType}
+                                                    onValueChange={(v: "FIXED" | "PERCENTAGE") =>
+                                                        setEditForm({ ...editForm, calculationType: v })
+                                                    }
+                                                >
                                                     <SelectTrigger><SelectValue /></SelectTrigger>
                                                     <SelectContent>
                                                         <SelectItem value="FIXED">FIXED</SelectItem>
@@ -83,13 +100,41 @@ export function CostTableSection({ year, month, onSummaryUpdate }: Props) {
                                                     </SelectContent>
                                                 </Select>
                                             </TableCell>
-                                            <TableCell><Input type="number" value={editForm.amount} onChange={e => setEditForm({ ...editForm, amount: Number(e.target.value) })} /></TableCell>
-                                            <TableCell><Input type="number" disabled={editForm.calculationType === "FIXED"} value={editForm.calculationType === "FIXED" ? "" : editForm.percentage} onChange={e => setEditForm({ ...editForm, percentage: Number(e.target.value) })} /></TableCell>
-                                            <TableCell><div className="flex justify-center"><Checkbox checked={editForm.recurrent} onCheckedChange={v => setEditForm({ ...editForm, recurrent: !!v })} /></div></TableCell>
-                                            <TableCell><div className="flex justify-center"><Checkbox checked={editForm.paid} onCheckedChange={v => setEditForm({ ...editForm, paid: !!v })} /></div></TableCell>
+                                            <TableCell>
+                                                <Input
+                                                    type="number"
+                                                    value={editForm.amount}
+                                                    onChange={e => setEditForm({ ...editForm, amount: Number(e.target.value) })}
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <Input
+                                                    type="number"
+                                                    disabled={editForm.calculationType === "FIXED"}
+                                                    value={editForm.calculationType === "FIXED" ? "" : (editForm.percentage ?? 0)}
+                                                    onChange={e => {
+                                                        const val = e.target.value === "" ? 0 : Number(e.target.value);
+                                                        setEditForm({ ...editForm, percentage: val });
+                                                    }}
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="flex justify-center">
+                                                    <Checkbox checked={editForm.recurrent} onCheckedChange={v => setEditForm({ ...editForm, recurrent: !!v })} />
+                                                </div>
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="flex justify-center">
+                                                    <Checkbox checked={editForm.paid} onCheckedChange={v => setEditForm({ ...editForm, paid: !!v })} />
+                                                </div>
+                                            </TableCell>
                                             <TableCell className="text-right space-x-2">
-                                                <Button size="icon" variant="ghost" onClick={() => handleSave(cost.id)}><Check className="w-4 h-4 text-green-600" /></Button>
-                                                <Button size="icon" variant="ghost" onClick={() => { setEditingId(null); setEditForm(null); }}><X className="w-4 h-4 text-red-600" /></Button>
+                                                <Button size="icon" variant="ghost" onClick={() => handleSave(cost.id)}>
+                                                    <Check className="w-4 h-4 text-green-600" />
+                                                </Button>
+                                                <Button size="icon" variant="ghost" onClick={() => { setEditingId(null); setEditForm(null); }}>
+                                                    <X className="w-4 h-4 text-red-600" />
+                                                </Button>
                                             </TableCell>
                                         </>
                                     ) : (
@@ -97,12 +142,19 @@ export function CostTableSection({ year, month, onSummaryUpdate }: Props) {
                                             <TableCell className="font-medium">{cost.description}</TableCell>
                                             <TableCell>{cost.calculationType}</TableCell>
                                             <TableCell>R$ {cost.amount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</TableCell>
-                                            <TableCell>{cost.calculationType === "PERCENTAGE" ? `${cost.percentage}%` : "—"}</TableCell>
+                                            <TableCell>
+                                                {/* CORREÇÃO: Fallback visual para evitar que a célula suma se o valor for nulo */}
+                                                {cost.calculationType === "PERCENTAGE" ? `${cost.percentage ?? 0}%` : "—"}
+                                            </TableCell>
                                             <TableCell className="text-center">{cost.recurrent ? "Sim" : "Não"}</TableCell>
                                             <TableCell className="text-center">{cost.paid ? "Sim" : "Não"}</TableCell>
                                             <TableCell className="text-right space-x-2">
-                                                <Button size="icon" variant="ghost" onClick={() => startEdit(cost)}><Pencil className="w-4 h-4" /></Button>
-                                                <Button size="icon" variant="ghost" onClick={() => remove(cost.id, onSummaryUpdate)}><Trash2 className="w-4 h-4 text-red-500" /></Button>
+                                                <Button size="icon" variant="ghost" onClick={() => startEdit(cost)}>
+                                                    <Pencil className="w-4 h-4" />
+                                                </Button>
+                                                <Button size="icon" variant="ghost" onClick={() => remove(cost.id, onSummaryUpdate)}>
+                                                    <Trash2 className="w-4 h-4 text-red-500" />
+                                                </Button>
                                             </TableCell>
                                         </>
                                     )}

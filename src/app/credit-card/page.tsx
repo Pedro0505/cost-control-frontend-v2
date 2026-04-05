@@ -4,58 +4,76 @@ import { useState } from "react";
 import { InvoiceUploadCard } from "@/components/credit-card/InvoiceUploadCard";
 import { ExpenseTable } from "@/components/credit-card/ExpenseTable";
 import { EvolutionLineChart } from "@/components/credit-card/EvolutionLineChart";
+import { TotalInvoiceChart } from "@/components/credit-card/TotalInvoiceChart";
+import { InvoiceFilter } from "@/components/credit-card/InvoiceFilter";
 
 import { useCreditCardExpenses, useAvailableMonths } from "@/hooks/use-credit-card";
 import { useReprocessDescriptions } from "@/hooks/use-reprocess-descriptions";
 import { useEvolutionGraph } from "@/hooks/use-evolution-graph";
+import { useInvoiceGraph } from "@/hooks/use-invoice-graph";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shadcn/ui/select";
 import { Button } from "@/shadcn/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shadcn/ui/card";
-import { FileText, Loader2, Filter, RefreshCw, TrendingUp } from "lucide-react";
+import { FileText, Loader2, Filter, RefreshCw, TrendingUp, BarChart3 } from "lucide-react";
 
 export default function CreditCardPage() {
     const { availableData, refreshAvailable } = useAvailableMonths();
     const { expenses, fetchExpenses, loading } = useCreditCardExpenses();
-
     const { data: evolutionData, categories: evolutionCategories, loading: loadingEvolution, refetch: refetchEvolution } = useEvolutionGraph();
+    const { data: invoiceData, loading: loadingInvoice, refetch: refetchInvoice } = useInvoiceGraph();
 
     const [filterYear, setFilterYear] = useState<string>("");
     const [filterMonth, setFilterMonth] = useState<string>("");
     const [hasFiltered, setHasFiltered] = useState(false);
 
-    const handleFilter = async () => {
+    const handleFilterTable = async () => {
         if (filterYear && filterMonth) {
-            const year = parseInt(filterYear);
-            const month = parseInt(filterMonth);
-
-            await fetchExpenses(year, month);
+            await fetchExpenses(parseInt(filterYear), parseInt(filterMonth));
             setHasFiltered(true);
         }
     };
 
-    const { reprocess, isReprocessing } = useReprocessDescriptions(() => {
-        if (hasFiltered) handleFilter();
+    const handleRefreshAll = () => {
+        refreshAvailable();
+        if (hasFiltered) handleFilterTable();
         refetchEvolution();
-    });
+        refetchInvoice();
+    };
+
+    const { reprocess, isReprocessing } = useReprocessDescriptions(handleRefreshAll);
 
     const currentYearMonths = availableData.find(d => d.availableYear.toString() === filterYear)?.availableMonth || [];
 
     return (
         <div className="min-h-screen bg-slate-50/50 p-6 md:p-12">
-            <style jsx global>{`
-                .custom-scrollbar::-webkit-scrollbar { width: 5px; }
-                .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-                .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
-                .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
-            `}</style>
-
             <div className="max-w-5xl mx-auto space-y-10">
+
+                <Card className="bg-white shadow-sm border-slate-100 rounded-2xl overflow-hidden">
+                    <CardHeader className="border-b border-slate-50 pb-4">
+                        <CardTitle className="flex items-center gap-2 text-lg font-bold text-slate-800">
+                            <BarChart3 className="w-5 h-5 text-blue-500" />
+                            Progressão Total das Faturas
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-6">
+                        <InvoiceFilter
+                            onFilter={(params) => refetchInvoice(params)}
+                            onClear={() => refetchInvoice()}
+                            loading={loadingInvoice}
+                        />
+                        <TotalInvoiceChart
+                            data={invoiceData}
+                            loading={loadingInvoice}
+                        />
+                    </CardContent>
+                </Card>
+
                 <Card className="bg-white shadow-sm border-slate-100 rounded-2xl overflow-hidden">
                     <CardHeader className="border-b border-slate-50 pb-4">
                         <CardTitle className="flex items-center gap-2 text-lg font-bold text-slate-800">
                             <TrendingUp className="w-5 h-5 text-emerald-500" />
-                            Evolução de Gastos (Últimos 12 Meses)
+                            Evolução por Categoria de Gasto
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="pt-6">
@@ -67,7 +85,7 @@ export default function CreditCardPage() {
                     </CardContent>
                 </Card>
 
-                <InvoiceUploadCard onSuccess={() => { refreshAvailable(); if (hasFiltered) handleFilter(); refetchEvolution(); }} />
+                <InvoiceUploadCard onSuccess={handleRefreshAll} />
 
                 <div className="space-y-6">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -89,16 +107,36 @@ export default function CreditCardPage() {
                             <div className="h-6 w-[1px] bg-slate-200 mx-1" />
 
                             <Select value={filterYear} onValueChange={setFilterYear} disabled={loading || isReprocessing}>
-                                <SelectTrigger className="w-28 h-10 bg-white"><SelectValue placeholder="Ano" /></SelectTrigger>
-                                <SelectContent>{availableData.map(d => <SelectItem key={d.availableYear} value={d.availableYear.toString()}>{d.availableYear}</SelectItem>)}</SelectContent>
+                                <SelectTrigger className="w-28 h-10 bg-white">
+                                    <SelectValue placeholder="Ano" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {availableData.map(d => (
+                                        <SelectItem key={d.availableYear} value={d.availableYear.toString()}>
+                                            {d.availableYear}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
                             </Select>
 
                             <Select value={filterMonth} onValueChange={setFilterMonth} disabled={loading || isReprocessing || !filterYear}>
-                                <SelectTrigger className="w-36 h-10 bg-white"><SelectValue placeholder="Mês" /></SelectTrigger>
-                                <SelectContent>{currentYearMonths.map(m => <SelectItem key={m.value} value={m.value.toString()}>{m.name}</SelectItem>)}</SelectContent>
+                                <SelectTrigger className="w-36 h-10 bg-white">
+                                    <SelectValue placeholder="Mês" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {currentYearMonths.map(m => (
+                                        <SelectItem key={m.value} value={m.value.toString()}>
+                                            {m.name}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
                             </Select>
 
-                            <Button onClick={handleFilter} disabled={loading || isReprocessing || !filterYear || !filterMonth} className="bg-slate-800 hover:bg-slate-900 h-10 px-6 rounded-lg">
+                            <Button
+                                onClick={handleFilterTable}
+                                disabled={loading || isReprocessing || !filterYear || !filterMonth}
+                                className="bg-slate-800 hover:bg-slate-900 h-10 px-6 rounded-lg"
+                            >
                                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Filtrar"}
                             </Button>
                         </div>

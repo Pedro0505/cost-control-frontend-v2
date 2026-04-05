@@ -157,7 +157,9 @@ export function InvoiceUploadCard({ onSuccess }: Props) {
                                             >
                                                 <SelectTrigger className="h-9 text-xs bg-white border-slate-200 focus:ring-1 focus:ring-indigo-100"><SelectValue /></SelectTrigger>
                                                 <SelectContent>
-                                                    {allMonths.map(m => <SelectItem key={m.v} value={m.v}>{m.n}</SelectItem>)}
+                                                    {allMonths.map(m =>
+                                                        <SelectItem key={m.month_value} value={m.month_value}>{m.month_name}</SelectItem>)
+                                                    }
                                                 </SelectContent>
                                             </Select>
                                         </div>
