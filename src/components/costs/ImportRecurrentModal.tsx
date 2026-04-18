@@ -5,9 +5,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shadcn/ui/table";
 import { RefreshCw, Search, ArrowRight } from "lucide-react";
 import { getAvailableFinancialPeriods } from "@/services/monthly-balance";
-import { getCosts } from "@/services/cost";
+import {  getPreviewRecurrentCostsForImport } from "@/services/cost";
 import { AvailableYear } from "@/types/availability";
-import { Cost } from "@/types/cost";
+import { PreviewImportCosts } from "@/types/cost";
 import { useImportCosts } from "@/hooks/use-import-costs";
 
 interface SelectedPeriod {
@@ -20,7 +20,7 @@ export function ImportRecurrentModal({ onImportSuccess }: { onImportSuccess: () 
     const [data, setData] = useState<AvailableYear[]>([]);
     const [source, setSource] = useState<SelectedPeriod>({ year: 0, month: 0 });
     const [target, setTarget] = useState<SelectedPeriod>({ year: 0, month: 0 });
-    const [previewCosts, setPreviewCosts] = useState<Cost[]>([]);
+    const [previewCosts, setPreviewCosts] = useState<PreviewImportCosts[]>([]);
     const [searching, setSearching] = useState(false);
     const { execute, loading: importing } = useImportCosts();
 
@@ -33,8 +33,13 @@ export function ImportRecurrentModal({ onImportSuccess }: { onImportSuccess: () 
     const handleSearchSource = async () => {
         setSearching(true);
         try {
-            const response = await getCosts(source.year, source.month);
-            setPreviewCosts(response.filter(c => c.recurrent));
+            const response = await getPreviewRecurrentCostsForImport({
+                sourceReferenceYear: source.year,
+                sourceReferenceMonth: source.month,
+                targetReferenceYear: target.year,
+                targetReferenceMonth: target.month
+            });
+            setPreviewCosts(response);
         } finally {
             setSearching(false);
         }

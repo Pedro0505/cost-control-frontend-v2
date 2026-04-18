@@ -43,3 +43,11 @@ export interface CreateCostResponse {
     paid: boolean;
     moneySummary: MoneySummary;
 }
+
+export interface PreviewImportCosts {
+    id: number;
+    calculationType: "FIXED" | "PERCENTAGE";
+    amount: number;
+    percentage: number;
+    description: string;
+}
