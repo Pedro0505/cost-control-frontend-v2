@@ -5,12 +5,16 @@ import { InvoiceUploadCard } from "@/components/credit-card/InvoiceUploadCard";
 import { ExpenseTable } from "@/components/credit-card/ExpenseTable";
 import { EvolutionLineChart } from "@/components/credit-card/EvolutionLineChart";
 import { TotalInvoiceChart } from "@/components/credit-card/TotalInvoiceChart";
+import { CategoryPieChart } from "@/components/credit-card/CategoryPieChart";
+import { InstallmentPieChart } from "@/components/credit-card/InstallmentPieChart";
 import { InvoiceFilter } from "@/components/credit-card/InvoiceFilter";
 
 import { useCreditCardExpenses, useAvailableMonths } from "@/hooks/use-credit-card";
 import { useReprocessDescriptions } from "@/hooks/use-reprocess-descriptions";
 import { useEvolutionGraph } from "@/hooks/use-evolution-graph";
 import { useInvoiceGraph } from "@/hooks/use-invoice-graph";
+import { useCategoryPercentage } from "@/hooks/use-category-percentage";
+import { useInstallmentPercentage } from "@/hooks/use-installment-percentage";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shadcn/ui/select";
 import { Button } from "@/shadcn/ui/button";
@@ -22,6 +26,8 @@ export default function CreditCardPage() {
     const { expenses, fetchExpenses, loading } = useCreditCardExpenses();
     const { data: evolutionData, categories: evolutionCategories, loading: loadingEvolution, refetch: refetchEvolution } = useEvolutionGraph();
     const { data: invoiceData, loading: loadingInvoice, refetch: refetchInvoice } = useInvoiceGraph();
+    const { percentageData, loadingPercentage, fetchPercentage, resetPercentage } = useCategoryPercentage();
+    const { installmentData, loadingInstallment, fetchInstallment, resetInstallment } = useInstallmentPercentage();
 
     const [filterYear, setFilterYear] = useState<string>("");
     const [filterMonth, setFilterMonth] = useState<string>("");
@@ -29,16 +35,36 @@ export default function CreditCardPage() {
 
     const handleFilterTable = async () => {
         if (filterYear && filterMonth) {
-            await fetchExpenses(parseInt(filterYear), parseInt(filterMonth));
+            const yearNum = parseInt(filterYear);
+            const monthNum = parseInt(filterMonth);
+            await Promise.all([
+                fetchExpenses(yearNum, monthNum),
+                fetchPercentage(yearNum, monthNum),
+                fetchInstallment(yearNum, monthNum)
+            ]);
             setHasFiltered(true);
         }
     };
 
     const handleRefreshAll = () => {
         refreshAvailable();
-        if (hasFiltered) handleFilterTable();
+        if (hasFiltered) {
+            handleFilterTable();
+        } else {
+            resetPercentage();
+            resetInstallment();
+        }
         refetchEvolution();
         refetchInvoice();
+    };
+
+    const handleYearChange = (value: string) => {
+        setFilterYear(value);
+        setFilterMonth("");
+    };
+
+    const handleMonthChange = (value: string) => {
+        setFilterMonth(value);
     };
 
     const { reprocess, isReprocessing } = useReprocessDescriptions(handleRefreshAll);
@@ -106,7 +132,7 @@ export default function CreditCardPage() {
 
                             <div className="h-6 w-[1px] bg-slate-200 mx-1" />
 
-                            <Select value={filterYear} onValueChange={setFilterYear} disabled={loading || isReprocessing}>
+                            <Select value={filterYear} onValueChange={handleYearChange} disabled={loading || isReprocessing}>
                                 <SelectTrigger className="w-28 h-10 bg-white">
                                     <SelectValue placeholder="Ano" />
                                 </SelectTrigger>
@@ -119,7 +145,7 @@ export default function CreditCardPage() {
                                 </SelectContent>
                             </Select>
 
-                            <Select value={filterMonth} onValueChange={setFilterMonth} disabled={loading || isReprocessing || !filterYear}>
+                            <Select value={filterMonth} onValueChange={handleMonthChange} disabled={loading || isReprocessing || !filterYear}>
                                 <SelectTrigger className="w-36 h-10 bg-white">
                                     <SelectValue placeholder="Mês" />
                                 </SelectTrigger>
@@ -141,6 +167,19 @@ export default function CreditCardPage() {
                             </Button>
                         </div>
                     </div>
+
+                    {hasFiltered && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <CategoryPieChart
+                                data={percentageData}
+                                loading={loadingPercentage}
+                            />
+                            <InstallmentPieChart
+                                data={installmentData}
+                                loading={loadingInstallment}
+                            />
+                        </div>
+                    )}
 
                     {loading ? (
                         <div className="py-20 flex flex-col items-center gap-4 bg-white/50 rounded-3xl border border-dashed border-slate-200">

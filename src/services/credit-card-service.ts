@@ -3,6 +3,7 @@ import {
     CreditCardExpenseGrouped,
     AvailableMonthResponse
 } from "@/types/credit-card";
+import { CategoryPercentage } from "@/types/credit-card-percentage";
 
 export const creditCardService = {
     uploadInvoice: async (file: File, year: number, month: number): Promise<void> => {
@@ -37,5 +38,12 @@ export const creditCardService = {
 
     reprocessDescriptions: async (): Promise<void> => {
         await api.put("/credit-card-expenses/reprocessing-descriptions");
+    },
+
+    getExpensesPercentage: async (month: number, year: number): Promise<CategoryPercentage[]> => {
+        const { data } = await api.get<CategoryPercentage[]>(
+            `/credit-card-expenses/percentage?month=${month}&year=${year}`
+        );
+        return data;
     }
 };
