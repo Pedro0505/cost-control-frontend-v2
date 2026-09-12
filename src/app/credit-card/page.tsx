@@ -132,7 +132,11 @@ export default function CreditCardPage() {
 
                             <div className="h-6 w-[1px] bg-slate-200 mx-1" />
 
-                            <Select value={filterYear} onValueChange={handleYearChange} disabled={loading || isReprocessing}>
+                            <Select
+                                value={filterYear || ""}
+                                onValueChange={handleYearChange}
+                                disabled={loading || isReprocessing}
+                            >
                                 <SelectTrigger className="w-28 h-10 bg-white">
                                     <SelectValue placeholder="Ano" />
                                 </SelectTrigger>
@@ -145,7 +149,11 @@ export default function CreditCardPage() {
                                 </SelectContent>
                             </Select>
 
-                            <Select value={filterMonth} onValueChange={handleMonthChange} disabled={loading || isReprocessing || !filterYear}>
+                            <Select
+                                value={filterMonth || ""}
+                                onValueChange={handleMonthChange}
+                                disabled={loading || isReprocessing || !filterYear}
+                            >
                                 <SelectTrigger className="w-36 h-10 bg-white">
                                     <SelectValue placeholder="Mês" />
                                 </SelectTrigger>

@@ -4,8 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d492355-a6fd-4053-909c-39fd8ced7b26" name="Changes" comment="feat: remove wrong file from git">
+    <list default="true" id="5d492355-a6fd-4053-909c-39fd8ced7b26" name="Changes" comment="feat: Adicionando página de login e lógicas de autenticação">
+      <change afterPath="$PROJECT_DIR$/src/app/login/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/profile/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/header/HeaderWrapper.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/use-auth.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/proxy.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/auth-service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shadcn/ui/dropdown-menu.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/auth.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/credit-card/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/credit-card/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/http.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/http.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,38 +49,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "main",
-    "js.last.introduce.type": "CONST",
-    "last_opened_file_path": "//wsl.localhost/Ubuntu-20.04/home/pedro/cost-control-frontend-v2/src/types",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "wsl://Ubuntu-20.04@/home/pedro/.nvm/versions/node/v20.18.0/bin/node",
-    "nodejs_package_manager_path": "npm",
-    "npm.dev.executor": "Run",
-    "settings.editor.selected.configurable": "settings.nodejs",
-    "ts.external.directory.path": "\\\\wsl.localhost\\Ubuntu-20.04\\home\\pedro\\cost-control-frontend-v2\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;js.last.introduce.type&quot;: &quot;CONST&quot;,
+    &quot;last_opened_file_path&quot;: &quot;//wsl.localhost/Ubuntu-20.04/home/pedro/cardapio&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;wsl://Ubuntu-20.04@/home/pedro/.nvm/versions/node/v20.18.0/bin/node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.dev -- -H 0.0.0.0.executor&quot;: &quot;Run&quot;,
+    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
+    &quot;npm.lint.executor&quot;: &quot;Run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.nodejs&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;\\\\wsl.localhost\\Ubuntu-20.04\\home\\pedro\\cost-control-frontend-v2\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="\\wsl.localhost\Ubuntu-20.04\home\pedro\cost-control-frontend-v2\src\types" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="\\wsl.localhost\Ubuntu-20.04\home\pedro\cost-control-frontend-v2\src\components\credit-card" />
+      <recent name="\\wsl.localhost\Ubuntu-20.04\home\pedro\cost-control-frontend-v2\src\types" />
       <recent name="\\wsl.localhost\Ubuntu-20.04\home\pedro\cost-control-frontend-v2\src\components\management" />
       <recent name="\\wsl.localhost\Ubuntu-20.04\home\pedro\cost-control-frontend-v2\src\components\summary" />
       <recent name="\\wsl.localhost\Ubuntu-20.04\home\pedro\cost-control-frontend-v2\src" />
-      <recent name="\\wsl.localhost\Ubuntu-20.04\home\pedro\cost-control-frontend-v2\src\services\types" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.dev">
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -76,9 +94,24 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="lint" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="lint" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="npm.dev" />
+      <item itemvalue="npm.lint" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="npm.dev" />
+        <item itemvalue="npm.lint" />
       </list>
     </recent_temporary>
   </component>
@@ -110,7 +143,62 @@
       <workItem from="1767871132252" duration="817000" />
       <workItem from="1767886442369" duration="1729000" />
       <workItem from="1767913699712" duration="1245000" />
-      <workItem from="1768048411612" duration="13121000" />
+      <workItem from="1768048411612" duration="17900000" />
+      <workItem from="1768132715406" duration="1523000" />
+      <workItem from="1768235223777" duration="656000" />
+      <workItem from="1768864956513" duration="2106000" />
+      <workItem from="1769464726447" duration="2944000" />
+      <workItem from="1769633836216" duration="883000" />
+      <workItem from="1769641688960" duration="594000" />
+      <workItem from="1769727856102" duration="1796000" />
+      <workItem from="1769968249294" duration="9803000" />
+      <workItem from="1770068843104" duration="4827000" />
+      <workItem from="1770152508226" duration="3259000" />
+      <workItem from="1770157785483" duration="1421000" />
+      <workItem from="1770246601044" duration="675000" />
+      <workItem from="1770414164313" duration="3922000" />
+      <workItem from="1770470983517" duration="1204000" />
+      <workItem from="1770934175933" duration="1551000" />
+      <workItem from="1771627920921" duration="771000" />
+      <workItem from="1772914273709" duration="26000" />
+      <workItem from="1773228518390" duration="766000" />
+      <workItem from="1773349248140" duration="864000" />
+      <workItem from="1774100603514" duration="1227000" />
+      <workItem from="1775310244568" duration="1842000" />
+      <workItem from="1775407763843" duration="2621000" />
+      <workItem from="1775839571339" duration="559000" />
+      <workItem from="1775858761966" duration="3207000" />
+      <workItem from="1775911713850" duration="1358000" />
+      <workItem from="1776010973137" duration="1343000" />
+      <workItem from="1776514357175" duration="2179000" />
+      <workItem from="1777815792770" duration="1155000" />
+      <workItem from="1778672648034" duration="649000" />
+      <workItem from="1778945720215" duration="1317000" />
+      <workItem from="1780608695671" duration="881000" />
+      <workItem from="1781520701600" duration="570000" />
+      <workItem from="1782862931943" duration="2030000" />
+      <workItem from="1783682374240" duration="1747000" />
+      <workItem from="1785188787550" duration="682000" />
+      <workItem from="1785585872611" duration="6017000" />
+      <workItem from="1785601072886" duration="257000" />
+      <workItem from="1785669156824" duration="3890000" />
+      <workItem from="1785710300956" duration="4140000" />
+      <workItem from="1785791488348" duration="1218000" />
+      <workItem from="1785877945124" duration="1337000" />
+      <workItem from="1785925916950" duration="2302000" />
+      <workItem from="1785964518228" duration="643000" />
+      <workItem from="1786280874233" duration="957000" />
+      <workItem from="1786305098048" duration="630000" />
+      <workItem from="1786572445576" duration="571000" />
+      <workItem from="1786807780721" duration="594000" />
+      <workItem from="1787269837521" duration="11000" />
+      <workItem from="1787521663937" duration="604000" />
+      <workItem from="1787691058766" duration="802000" />
+      <workItem from="1787875872730" duration="218000" />
+      <workItem from="1788825692048" duration="91000" />
+      <workItem from="1789073932707" duration="1356000" />
+      <workItem from="1789161858509" duration="1385000" />
+      <workItem from="1789220567671" duration="1149000" />
     </task>
     <task id="LOCAL-00001" summary="feat: remove wrong file from git">
       <option name="closed" value="true" />
@@ -120,7 +208,55 @@
       <option name="project" value="LOCAL" />
       <updated>1768083802554</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="refactor: refactoring eslint erros and default view for no data">
+      <option name="closed" value="true" />
+      <created>1768100428231</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1768100428231</updated>
+    </task>
+    <task id="LOCAL-00003" summary="refactor: Adding credit card sections">
+      <option name="closed" value="true" />
+      <created>1770158023290</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1770158023290</updated>
+    </task>
+    <task id="LOCAL-00004" summary="refactor: Adding credit card sections">
+      <option name="closed" value="true" />
+      <created>1770246655777</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1770246655777</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: Adding new credit card sections">
+      <option name="closed" value="true" />
+      <created>1775409059864</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1775409059864</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: Adapting import recurrent costs">
+      <option name="closed" value="true" />
+      <created>1776514731396</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1776514731396</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: adicionando graficos pizza com porcentagem para as categorias da fatura">
+      <option name="closed" value="true" />
+      <created>1785669258110</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1785669258110</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -129,6 +265,23 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: initial commit" />
     <MESSAGE value="feat: remove wrong file from git" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: remove wrong file from git" />
+    <MESSAGE value="refactor: refactoring eslint erros and default view for no data" />
+    <MESSAGE value="refactor: Adding credit card sections" />
+    <MESSAGE value="feat: Adding new credit card sections" />
+    <MESSAGE value="feat: Adapting import recurrent costs" />
+    <MESSAGE value="feat: adicionando graficos pizza com porcentagem para as categorias da fatura" />
+    <MESSAGE value="feat: Adicionando página de login e lógicas de autenticação" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Adicionando página de login e lógicas de autenticação" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/header/Header.tsx</url>
+          <line>26</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

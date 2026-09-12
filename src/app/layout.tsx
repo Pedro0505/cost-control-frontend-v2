@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Header } from "@/components/header/Header";
+import { HeaderWrapper } from "@/components/header/HeaderWrapper";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "sonner";
@@ -28,7 +28,7 @@ export default function RootLayout({ children }: Readonly<Props>) {
     return (
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background text-foreground flex flex-col`}>
-                <Header />
+                <HeaderWrapper />
                 <Toaster richColors closeButton />
                 <main className="flex-1 w-full bg-[#F3F3FB]">{children}</main>
             </body>
