@@ -14,6 +14,7 @@ export interface Income {
     description: string;
     referenceDate: string;
     contractType: string | null;
+    businessDays?: number;
 }
 
 export interface IncomePageResponse {

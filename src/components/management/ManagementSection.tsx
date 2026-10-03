@@ -77,7 +77,7 @@ export function ManagementSection() {
             description: incomeForm.description,
             referenceDate: incomeForm.referenceDate,
             contractType: contractType,
-            businessDays: contractType === "PJ" ? parseInt(incomeForm.businessDays) : null
+            businessDays: contractType === "PJ" && incomeForm.businessDays ? parseInt(incomeForm.businessDays) : null
         });
         setIncomeForm({ amount: "", description: "", referenceDate: new Date().toISOString().split('T')[0], businessDays: "" });
         await refreshIncomes();
@@ -97,6 +97,7 @@ export function ManagementSection() {
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
 
+                    {/* Card de Contratos */}
                     <div className="p-8 bg-white rounded-xl shadow-sm border flex flex-col min-h-[720px]">
                         <div className="flex-1 flex flex-col">
                             <h3 className="text-lg font-bold text-gray-700 mb-6 text-center">Cadastrar Contrato</h3>
@@ -211,6 +212,7 @@ export function ManagementSection() {
                         </div>
                     </div>
 
+                    {/* Card de Rendas */}
                     <div className="p-8 bg-white rounded-xl shadow-sm border flex flex-col min-h-[720px]">
                         <div className="flex-1 flex flex-col">
                             <h3 className="text-lg font-bold text-gray-700 mb-6 text-center">Cadastrar Nova Renda</h3>
@@ -280,10 +282,22 @@ export function ManagementSection() {
                                                                 {income.description}
                                                                 <span className="text-[9px] bg-gray-100 px-1 rounded text-gray-500 font-bold">{income.contractType}</span>
                                                             </span>
-                                                            <span className="text-[10px] text-gray-400">{formatDateString(income.referenceDate)}</span>
+
+                                                            <div className="flex items-center gap-2 text-[10px] text-gray-400">
+                                                                <span>{formatDateString(income.referenceDate)}</span>
+
+                                                                {income.contractType === "PJ" && income.businessDays != null && (
+                                                                    <>
+                                                                        <span>•</span>
+                                                                        <span className="bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded-full font-medium">
+                                                                            {income.businessDays} {income.businessDays === 1 ? 'dia útil' : 'dias úteis'}
+                                                                        </span>
+                                                                    </>
+                                                                )}
+                                                            </div>
                                                         </div>
                                                     </TableCell>
-                                                    <TableCell className="py-2 text-right font-bold text-green-600">
+                                                    <TableCell className="py-2 text-right font-bold text-green-600 whitespace-nowrap">
                                                         R$ {income.amount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                                                     </TableCell>
                                                     <TableCell className="py-2 text-right w-10">
