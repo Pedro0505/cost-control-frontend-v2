@@ -9,15 +9,15 @@ type SummaryCardProps = {
 };
 
 const colorMap = {
-    green: "text-green-600",
-    red: "text-red-600",
-    blue: "text-blue-600",
+    green: "text-green-600 dark:text-green-400",
+    red: "text-red-600 dark:text-red-400",
+    blue: "text-blue-600 dark:text-blue-400",
 };
 
 const footerLineMap = {
-    green: "bg-green-600",
-    red: "bg-red-600",
-    blue: "bg-blue-600",
+    green: "bg-green-600 dark:bg-green-500",
+    red: "bg-red-600 dark:bg-red-500",
+    blue: "bg-blue-600 dark:bg-blue-500",
 };
 
 

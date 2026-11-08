@@ -26,10 +26,10 @@ export default function Home() {
     }
 
     return (
-        <main className="min-h-screen bg-[#F1F2F9]">
-            <section className="w-full border-b border-gray-200">
+        <main className="min-h-screen bg-page">
+            <section className="w-full border-b border-gray-200 dark:border-border">
                 <div className="max-w-7xl mx-auto px-6 py-8">
-                    <div className="bg-white rounded-xl shadow-sm border px-6 py-5">
+                    <div className="bg-card rounded-xl shadow-sm border px-6 py-5">
                         <MonthYearFilter onApply={handleApply} />
                     </div>
                 </div>

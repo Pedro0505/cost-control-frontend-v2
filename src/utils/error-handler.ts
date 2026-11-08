@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { toast } from "sonner";
 
-interface ErrorResponse {
+export interface ErrorResponse {
     message: string;
     status: number;
     timestamp: number;
@@ -18,4 +18,13 @@ export const handleApiError = (error: unknown) => {
     toast.error("Erro na Operação", {
         description: errorMessage,
     });
+};
+
+export const getApiErrorMessage = (error: unknown, fallback = "Ocorreu um erro inesperado."): string => {
+    const axiosError = error as AxiosError<ErrorResponse>;
+    return axiosError?.response?.data?.message || fallback;
+};
+
+export const getApiErrorStatus = (error: unknown): number | undefined => {
+    return (error as AxiosError)?.response?.status;
 };

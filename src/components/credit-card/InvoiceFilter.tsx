@@ -37,15 +37,15 @@ export function InvoiceFilter({ onFilter, onClear, loading }: Props) {
     };
 
     return (
-        <div className="flex flex-wrap items-center gap-4 bg-slate-50/80 p-4 rounded-xl border border-slate-100 mb-6">
+        <div className="flex flex-wrap items-center gap-4 bg-slate-50/80 dark:bg-muted/40 p-4 rounded-xl border border-slate-100 dark:border-border mb-6">
             <div className="flex items-center gap-3">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Início:</span>
                 <Select value={startYear} onValueChange={setStartYear}>
-                    <SelectTrigger className="w-[110px] h-9 bg-white"><SelectValue placeholder="Ano" /></SelectTrigger>
+                    <SelectTrigger className="w-[110px] h-9 bg-card"><SelectValue placeholder="Ano" /></SelectTrigger>
                     <SelectContent>{years.map(y => <SelectItem key={y} value={y}>{y}</SelectItem>)}</SelectContent>
                 </Select>
                 <Select value={startMonth} onValueChange={setStartMonth}>
-                    <SelectTrigger className="w-[130px] h-9 bg-white"><SelectValue placeholder="Mês" /></SelectTrigger>
+                    <SelectTrigger className="w-[130px] h-9 bg-card"><SelectValue placeholder="Mês" /></SelectTrigger>
                     <SelectContent>{allMonths.map(m => <SelectItem key={m.month_value} value={m.month_value}>{m.month_name}</SelectItem>)}</SelectContent>
                 </Select>
             </div>
@@ -53,11 +53,11 @@ export function InvoiceFilter({ onFilter, onClear, loading }: Props) {
             <div className="flex items-center gap-3">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Fim:</span>
                 <Select value={endYear} onValueChange={setEndYear}>
-                    <SelectTrigger className="w-[110px] h-9 bg-white"><SelectValue placeholder="Ano" /></SelectTrigger>
+                    <SelectTrigger className="w-[110px] h-9 bg-card"><SelectValue placeholder="Ano" /></SelectTrigger>
                     <SelectContent>{years.map(y => <SelectItem key={y} value={y}>{y}</SelectItem>)}</SelectContent>
                 </Select>
                 <Select value={endMonth} onValueChange={setEndMonth}>
-                    <SelectTrigger className="w-[130px] h-9 bg-white"><SelectValue placeholder="Mês" /></SelectTrigger>
+                    <SelectTrigger className="w-[130px] h-9 bg-card"><SelectValue placeholder="Mês" /></SelectTrigger>
                     <SelectContent>{allMonths.map(m => <SelectItem key={m.month_value} value={m.month_value}>{m.month_name}</SelectItem>)}</SelectContent>
                 </Select>
             </div>
@@ -66,7 +66,7 @@ export function InvoiceFilter({ onFilter, onClear, loading }: Props) {
                 <Button onClick={handleApply} disabled={loading} size="sm" className="h-9 gap-2 bg-indigo-600 hover:bg-indigo-700 px-4">
                     <Filter className="w-3.5 h-3.5" /> Aplicar Período
                 </Button>
-                <Button variant="ghost" onClick={handleClear} size="sm" className="h-9 gap-2 text-slate-500 hover:bg-slate-200/50">
+                <Button variant="ghost" onClick={handleClear} size="sm" className="h-9 gap-2 text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-muted">
                     <XCircle className="w-3.5 h-3.5" /> Limpar
                 </Button>
             </div>

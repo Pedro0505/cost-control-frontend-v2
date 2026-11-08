@@ -22,6 +22,19 @@ interface QueuedFile {
 
 const MAX_FILES = 12;
 
+// Extrai mês/ano de nomes no padrão "Nubank_2026-11-16.csv" (data em AAAA-MM-DD).
+// Retorna null se não houver data válida ou se o ano não estiver entre as opções do select.
+function extractPeriodFromFileName(fileName: string, availableYears: string[]): { month: string; year: string } | null {
+    const match = fileName.match(/(\d{4})-(\d{2})-(\d{2})/);
+    if (!match) return null;
+
+    const [, year, monthStr] = match;
+    const month = parseInt(monthStr, 10);
+    if (month < 1 || month > 12 || !availableYears.includes(year)) return null;
+
+    return { month: month.toString(), year };
+}
+
 export function InvoiceUploadCard({ onSuccess }: Props) {
     const [queuedFiles, setQueuedFiles] = useState<QueuedFile[]>([]);
     const [loading, setLoading] = useState(false);
@@ -44,12 +57,15 @@ export function InvoiceUploadCard({ onSuccess }: Props) {
 
         const filesToAdd = files.slice(0, remainingSlots);
 
-        const newQueuedFiles: QueuedFile[] = filesToAdd.map((file) => ({
-            id: crypto.randomUUID(),
-            file,
-            month: (new Date().getMonth() + 1).toString(),
-            year: new Date().getFullYear().toString(),
-        }));
+        const newQueuedFiles: QueuedFile[] = filesToAdd.map((file) => {
+            const period = extractPeriodFromFileName(file.name, years);
+            return {
+                id: crypto.randomUUID(),
+                file,
+                month: period?.month ?? (new Date().getMonth() + 1).toString(),
+                year: period?.year ?? new Date().getFullYear().toString(),
+            };
+        });
 
         setQueuedFiles((prev) => [...prev, ...newQueuedFiles]);
 
@@ -100,24 +116,24 @@ export function InvoiceUploadCard({ onSuccess }: Props) {
                     background: transparent;
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background: #e2e8f0;
+                    background: hsl(var(--border));
                     border-radius: 10px;
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                    background: #cbd5e1;
+                    background: hsl(var(--muted-foreground) / 0.5);
                 }
             `}</style>
 
-            <Card className="bg-white shadow-md border-none rounded-2xl overflow-hidden">
+            <Card className="bg-card shadow-md border-none rounded-2xl overflow-hidden">
                 <CardHeader className="pb-4">
-                    <CardTitle className="text-lg font-semibold text-slate-800">
+                    <CardTitle className="text-lg font-semibold text-slate-800 dark:text-slate-100">
                         Cadastrar Faturas ({queuedFiles.length}/{MAX_FILES})
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
 
                     {queuedFiles.length < MAX_FILES && (
-                        <div className="group relative border-2 border-dashed border-slate-100 rounded-2xl p-8 transition-all hover:border-indigo-200 hover:bg-indigo-50/10 flex flex-col items-center justify-center">
+                        <div className="group relative border-2 border-dashed border-slate-100 dark:border-border rounded-2xl p-8 transition-all hover:border-indigo-200 dark:hover:border-indigo-500/40 hover:bg-indigo-50/10 dark:hover:bg-indigo-500/10 flex flex-col items-center justify-center">
                             <input
                                 type="file"
                                 multiple
@@ -126,10 +142,10 @@ export function InvoiceUploadCard({ onSuccess }: Props) {
                                 onChange={handleFileSelection}
                             />
                             <div className="flex flex-col items-center gap-2">
-                                <div className="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-500 group-hover:scale-110 transition-transform">
+                                <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-500/15 rounded-full flex items-center justify-center text-indigo-500 group-hover:scale-110 transition-transform">
                                     <UploadCloud className="w-6 h-6" />
                                 </div>
-                                <p className="text-sm font-medium text-slate-600">
+                                <p className="text-sm font-medium text-slate-600 dark:text-slate-300">
                                     Clique para adicionar até {MAX_FILES - queuedFiles.length} arquivos
                                 </p>
                             </div>
@@ -138,13 +154,13 @@ export function InvoiceUploadCard({ onSuccess }: Props) {
 
                     <div className="space-y-3 max-h-[420px] overflow-y-auto pr-3 custom-scrollbar scroll-smooth">
                         {queuedFiles.map((item) => (
-                            <div key={item.id} className="group/item flex items-center gap-4 p-4 bg-slate-50/50 border border-slate-100 rounded-xl transition-all hover:border-indigo-100 hover:bg-white hover:shadow-sm">
+                            <div key={item.id} className="group/item flex items-center gap-4 p-4 bg-slate-50/50 dark:bg-muted/40 border border-slate-100 dark:border-border rounded-xl transition-all hover:border-indigo-100 dark:hover:border-indigo-500/40 hover:bg-card hover:shadow-sm">
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-2 mb-3">
-                                        <div className="p-1.5 bg-white border border-slate-100 rounded-lg shadow-xs group-hover/item:border-indigo-100 transition-colors">
+                                        <div className="p-1.5 bg-card border border-slate-100 dark:border-border rounded-lg shadow-xs group-hover/item:border-indigo-100 dark:group-hover/item:border-indigo-500/40 transition-colors">
                                             <FileText className="w-4 h-4 text-indigo-400 shrink-0" />
                                         </div>
-                                        <span className="text-sm font-semibold text-slate-700 truncate">
+                                        <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">
                                             {item.file.name}
                                         </span>
                                     </div>
@@ -155,7 +171,7 @@ export function InvoiceUploadCard({ onSuccess }: Props) {
                                                 value={item.month}
                                                 onValueChange={(v) => updateFileData(item.id, "month", v)}
                                             >
-                                                <SelectTrigger className="h-9 text-xs bg-white border-slate-200 focus:ring-1 focus:ring-indigo-100"><SelectValue /></SelectTrigger>
+                                                <SelectTrigger className="h-9 text-xs bg-card border-slate-200 dark:border-border focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-500/40"><SelectValue /></SelectTrigger>
                                                 <SelectContent>
                                                     {allMonths.map(m =>
                                                         <SelectItem key={m.month_value} value={m.month_value}>{m.month_name}</SelectItem>)
@@ -168,7 +184,7 @@ export function InvoiceUploadCard({ onSuccess }: Props) {
                                                 value={item.year}
                                                 onValueChange={(v) => updateFileData(item.id, "year", v)}
                                             >
-                                                <SelectTrigger className="h-9 text-xs bg-white border-slate-200 focus:ring-1 focus:ring-indigo-100"><SelectValue /></SelectTrigger>
+                                                <SelectTrigger className="h-9 text-xs bg-card border-slate-200 dark:border-border focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-500/40"><SelectValue /></SelectTrigger>
                                                 <SelectContent>
                                                     {years.map(y => <SelectItem key={y} value={y}>{y}</SelectItem>)}
                                                 </SelectContent>
@@ -181,7 +197,7 @@ export function InvoiceUploadCard({ onSuccess }: Props) {
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => removeFile(item.id)}
-                                    className="text-slate-300 hover:text-red-500 hover:bg-red-50 shrink-0 transition-colors"
+                                    className="text-slate-300 dark:text-slate-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/15 shrink-0 transition-colors"
                                 >
                                     <Trash2 className="w-4 h-4" />
                                 </Button>
@@ -192,7 +208,7 @@ export function InvoiceUploadCard({ onSuccess }: Props) {
                     {queuedFiles.length > 0 && (
                         <div className="pt-2">
                             <Button
-                                className="w-full h-12 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-xl transition-all shadow-lg shadow-slate-100"
+                                className="w-full h-12 bg-slate-800 dark:bg-primary hover:bg-slate-900 dark:hover:bg-primary/90 text-white dark:text-primary-foreground font-semibold rounded-xl transition-all shadow-lg shadow-slate-100 dark:shadow-none"
                                 onClick={handleUploadAll}
                                 disabled={loading}
                             >

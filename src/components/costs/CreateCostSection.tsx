@@ -73,12 +73,12 @@ export function CreateCostSection({ year, month, onSummaryUpdate }: Props) {
     }
 
     return (
-        <section className="w-full bg-[#F1F2F9]">
+        <section className="w-full bg-page">
             <div className="max-w-7xl mx-auto px-6 py-10">
-                <div className="bg-white rounded-xl shadow-sm border px-8 py-10">
+                <div className="bg-card rounded-xl shadow-sm border px-8 py-10">
 
                     <div className="relative flex items-center justify-center mb-10">
-                        <h2 className="text-xl font-bold text-gray-700">
+                        <h2 className="text-xl font-bold text-gray-700 dark:text-slate-200">
                             Adicionar Novo Gasto
                         </h2>
                         <div className="absolute right-0">

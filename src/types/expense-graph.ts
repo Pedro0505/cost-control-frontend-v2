@@ -2,7 +2,7 @@ import { Payload, NameType, ValueType } from "recharts/types/component/DefaultTo
 import { LegendPayload } from "recharts/types/component/DefaultLegendContent";
 
 export interface ExpenseEvolutionData {
-    category: string;
+    category: string | null;
     year: number;
     month: number;
     total: number;

@@ -8,6 +8,7 @@ import { Input } from "@/shadcn/ui/input";
 import { Label } from "@/shadcn/ui/label";
 import { Loader2, Lock, Mail, User } from "lucide-react";
 import { toast } from "sonner";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 export default function AuthPage() {
     const [isLogin, setIsLogin] = useState(true);
@@ -34,13 +35,14 @@ export default function AuthPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-50/50 p-6">
-            <Card className="w-full max-w-md bg-white shadow-sm border-slate-100 rounded-2xl overflow-hidden">
-                <CardHeader className="space-y-1 text-center border-b border-slate-50 pb-6">
-                    <CardTitle className="text-2xl font-bold text-slate-800">
+        <div className="relative min-h-screen flex items-center justify-center bg-slate-50/50 dark:bg-transparent p-6">
+            <ThemeToggle className="absolute right-6 top-6" />
+            <Card className="w-full max-w-md bg-card shadow-sm border-slate-100 dark:border-border rounded-2xl overflow-hidden">
+                <CardHeader className="space-y-1 text-center border-b border-slate-50 dark:border-border pb-6">
+                    <CardTitle className="text-2xl font-bold text-slate-800 dark:text-slate-100">
                         {isLogin ? "Acessar Conta" : "Criar Nova Conta"}
                     </CardTitle>
-                    <CardDescription className="text-slate-500">
+                    <CardDescription className="text-slate-500 dark:text-slate-400">
                         {isLogin
                             ? "Informe suas credenciais para entrar no sistema"
                             : "Preencha os campos abaixo para se cadastrar"}
@@ -102,7 +104,7 @@ export default function AuthPage() {
                         <Button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-slate-800 hover:bg-slate-900 h-10 rounded-lg mt-2"
+                            className="w-full bg-slate-800 dark:bg-primary hover:bg-slate-900 dark:hover:bg-primary/90 h-10 rounded-lg mt-2"
                         >
                             {loading ? (
                                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -118,7 +120,7 @@ export default function AuthPage() {
                         <button
                             type="button"
                             onClick={() => setIsLogin(!isLogin)}
-                            className="text-sm text-indigo-600 hover:underline font-medium"
+                            className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline font-medium"
                         >
                             {isLogin
                                 ? "Não tem uma conta? Cadastre-se"

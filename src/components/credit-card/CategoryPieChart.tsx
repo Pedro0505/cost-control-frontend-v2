@@ -3,7 +3,9 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
 import { Loader2, PieChart as PieChartIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shadcn/ui/card";
+import { useChartTheme } from "@/hooks/use-chart-theme";
 import { CategoryPercentage } from "@/types/credit-card-percentage";
+import { FALLBACK_CATEGORY } from "@/types/description-mapping";
 
 interface Props {
     data: CategoryPercentage[];
@@ -30,9 +32,10 @@ interface CustomLabelProps {
     outerRadius?: number;
     percent?: number;
     name?: string;
+    labelColor?: string;
 }
 
-const renderCustomLabel = ({ cx = 0, cy = 0, midAngle = 0, outerRadius = 0, percent = 0, name = "" }: CustomLabelProps) => {
+const renderCustomLabel = ({ cx = 0, cy = 0, midAngle = 0, outerRadius = 0, percent = 0, name = "", labelColor = "#475569" }: CustomLabelProps) => {
     const RADIAN = Math.PI / 180;
     const radius = outerRadius + 18;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -44,7 +47,7 @@ const renderCustomLabel = ({ cx = 0, cy = 0, midAngle = 0, outerRadius = 0, perc
         <text
             x={x}
             y={y}
-            fill="#475569"
+            fill={labelColor}
             textAnchor={x > cx ? "start" : "end"}
             dominantBaseline="central"
             className="text-[11px] font-medium"
@@ -54,10 +57,13 @@ const renderCustomLabel = ({ cx = 0, cy = 0, midAngle = 0, outerRadius = 0, perc
     );
 };
 
-export function CategoryPieChart({ data, loading }: Props) {
+export function CategoryPieChart({ data: rawData, loading }: Props) {
+    const chartTheme = useChartTheme();
+    const data = rawData?.map(item => ({ ...item, normalizedDescription: item.normalizedDescription ?? FALLBACK_CATEGORY }));
+
     if (loading) {
         return (
-            <Card className="bg-white shadow-sm border-slate-100 rounded-2xl h-full">
+            <Card className="bg-card shadow-sm border-slate-100 dark:border-border rounded-2xl h-full">
                 <CardContent className="h-[380px] flex items-center justify-center">
                     <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
                 </CardContent>
@@ -70,9 +76,9 @@ export function CategoryPieChart({ data, loading }: Props) {
     }
 
     return (
-        <Card className="bg-white shadow-sm border-slate-100 rounded-2xl overflow-hidden flex flex-col h-full">
-            <CardHeader className="border-b border-slate-50 pb-4">
-                <CardTitle className="flex items-center gap-2 text-lg font-bold text-slate-800">
+        <Card className="bg-card shadow-sm border-slate-100 dark:border-border rounded-2xl overflow-hidden flex flex-col h-full">
+            <CardHeader className="border-b border-slate-50 dark:border-border pb-4">
+                <CardTitle className="flex items-center gap-2 text-lg font-bold text-slate-800 dark:text-slate-100">
                     <PieChartIcon className="w-5 h-5 text-indigo-500" />
                     Distribuição por Categoria
                 </CardTitle>
@@ -91,7 +97,7 @@ export function CategoryPieChart({ data, loading }: Props) {
                                 innerRadius="35%"
                                 paddingAngle={3}
                                 labelLine={true}
-                                label={renderCustomLabel}
+                                label={(props: CustomLabelProps) => renderCustomLabel({ ...props, labelColor: chartTheme.label })}
                             >
                                 {data.map((_, index) => (
                                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -102,11 +108,9 @@ export function CategoryPieChart({ data, loading }: Props) {
                                     const numVal = typeof value === "number" ? value : parseFloat(String(value ?? 0));
                                     return [`${numVal.toFixed(2)}%`, name ?? "Categoria"];
                                 }}
-                                contentStyle={{
-                                    borderRadius: "12px",
-                                    border: "none",
-                                    boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)"
-                                }}
+                                contentStyle={chartTheme.tooltipContent}
+                                labelStyle={chartTheme.tooltipLabel}
+                                itemStyle={chartTheme.tooltipItem}
                             />
                             <Legend
                                 verticalAlign="bottom"

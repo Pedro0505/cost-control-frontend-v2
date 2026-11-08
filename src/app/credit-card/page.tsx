@@ -8,6 +8,10 @@ import { TotalInvoiceChart } from "@/components/credit-card/TotalInvoiceChart";
 import { CategoryPieChart } from "@/components/credit-card/CategoryPieChart";
 import { InstallmentPieChart } from "@/components/credit-card/InstallmentPieChart";
 import { InvoiceFilter } from "@/components/credit-card/InvoiceFilter";
+import { NoRulesBanner } from "@/components/description-mappings/NoRulesBanner";
+import { ReprocessRulesBanner } from "@/components/description-mappings/ReprocessRulesBanner";
+import { CATEGORIZATION_RULES_ROUTE } from "@/components/description-mappings/routes";
+import Link from "next/link";
 
 import { useCreditCardExpenses, useAvailableMonths } from "@/hooks/use-credit-card";
 import { useReprocessDescriptions } from "@/hooks/use-reprocess-descriptions";
@@ -19,7 +23,7 @@ import { useInstallmentPercentage } from "@/hooks/use-installment-percentage";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shadcn/ui/select";
 import { Button } from "@/shadcn/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shadcn/ui/card";
-import { FileText, Loader2, Filter, RefreshCw, TrendingUp, BarChart3 } from "lucide-react";
+import { FileText, Loader2, Filter, RefreshCw, TrendingUp, BarChart3, ListOrdered } from "lucide-react";
 
 export default function CreditCardPage() {
     const { availableData, refreshAvailable } = useAvailableMonths();
@@ -72,12 +76,15 @@ export default function CreditCardPage() {
     const currentYearMonths = availableData.find(d => d.availableYear.toString() === filterYear)?.availableMonth || [];
 
     return (
-        <div className="min-h-screen bg-slate-50/50 p-6 md:p-12">
+        <div className="min-h-screen bg-slate-50/50 dark:bg-transparent p-6 md:p-12">
             <div className="max-w-5xl mx-auto space-y-10">
+                <NoRulesBanner />
+                <ReprocessRulesBanner onReprocessed={handleRefreshAll} />
 
-                <Card className="bg-white shadow-sm border-slate-100 rounded-2xl overflow-hidden">
-                    <CardHeader className="border-b border-slate-50 pb-4">
-                        <CardTitle className="flex items-center gap-2 text-lg font-bold text-slate-800">
+
+                <Card className="bg-card shadow-sm border-slate-100 dark:border-border rounded-2xl overflow-hidden">
+                    <CardHeader className="border-b border-slate-50 dark:border-border pb-4">
+                        <CardTitle className="flex items-center gap-2 text-lg font-bold text-slate-800 dark:text-slate-100">
                             <BarChart3 className="w-5 h-5 text-blue-500" />
                             Progressão Total das Faturas
                         </CardTitle>
@@ -95,9 +102,9 @@ export default function CreditCardPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="bg-white shadow-sm border-slate-100 rounded-2xl overflow-hidden">
-                    <CardHeader className="border-b border-slate-50 pb-4">
-                        <CardTitle className="flex items-center gap-2 text-lg font-bold text-slate-800">
+                <Card className="bg-card shadow-sm border-slate-100 dark:border-border rounded-2xl overflow-hidden">
+                    <CardHeader className="border-b border-slate-50 dark:border-border pb-4">
+                        <CardTitle className="flex items-center gap-2 text-lg font-bold text-slate-800 dark:text-slate-100">
                             <TrendingUp className="w-5 h-5 text-emerald-500" />
                             Evolução por Categoria de Gasto
                         </CardTitle>
@@ -115,29 +122,39 @@ export default function CreditCardPage() {
 
                 <div className="space-y-6">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
                             <Filter className="w-5 h-5 text-indigo-500" /> Gastos Detalhados
                         </h2>
 
                         <div className="flex items-center gap-3">
                             <Button
                                 variant="outline"
+                                asChild
+                                className="h-10 border-slate-200 dark:border-border text-slate-600 dark:text-slate-300 gap-2 px-4 shadow-sm"
+                            >
+                                <Link href={CATEGORIZATION_RULES_ROUTE}>
+                                    <ListOrdered className="w-4 h-4" /> Regras
+                                </Link>
+                            </Button>
+
+                            <Button
+                                variant="outline"
                                 onClick={reprocess}
                                 disabled={isReprocessing || loading}
-                                className="h-10 border-slate-200 text-slate-600 gap-2 px-4 shadow-sm"
+                                className="h-10 border-slate-200 dark:border-border text-slate-600 dark:text-slate-300 gap-2 px-4 shadow-sm"
                             >
                                 <RefreshCw className={`w-4 h-4 ${isReprocessing ? 'animate-spin' : ''}`} />
                                 {isReprocessing ? "Processando..." : "Reprocessar"}
                             </Button>
 
-                            <div className="h-6 w-[1px] bg-slate-200 mx-1" />
+                            <div className="h-6 w-[1px] bg-slate-200 dark:bg-border mx-1" />
 
                             <Select
                                 value={filterYear || ""}
                                 onValueChange={handleYearChange}
                                 disabled={loading || isReprocessing}
                             >
-                                <SelectTrigger className="w-28 h-10 bg-white">
+                                <SelectTrigger className="w-28 h-10 bg-card">
                                     <SelectValue placeholder="Ano" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -154,7 +171,7 @@ export default function CreditCardPage() {
                                 onValueChange={handleMonthChange}
                                 disabled={loading || isReprocessing || !filterYear}
                             >
-                                <SelectTrigger className="w-36 h-10 bg-white">
+                                <SelectTrigger className="w-36 h-10 bg-card">
                                     <SelectValue placeholder="Mês" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -169,7 +186,7 @@ export default function CreditCardPage() {
                             <Button
                                 onClick={handleFilterTable}
                                 disabled={loading || isReprocessing || !filterYear || !filterMonth}
-                                className="bg-slate-800 hover:bg-slate-900 h-10 px-6 rounded-lg"
+                                className="bg-slate-800 dark:bg-primary hover:bg-slate-900 dark:hover:bg-primary/90 h-10 px-6 rounded-lg"
                             >
                                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Filtrar"}
                             </Button>
@@ -190,15 +207,15 @@ export default function CreditCardPage() {
                     )}
 
                     {loading ? (
-                        <div className="py-20 flex flex-col items-center gap-4 bg-white/50 rounded-3xl border border-dashed border-slate-200">
+                        <div className="py-20 flex flex-col items-center gap-4 bg-card/50 rounded-3xl border border-dashed border-slate-200 dark:border-border">
                             <Loader2 className="w-10 h-10 text-slate-400 animate-spin" />
                             <p className="text-slate-400 font-medium text-center">Carregando dados...</p>
                         </div>
                     ) : hasFiltered && expenses.length > 0 ? (
                         <ExpenseTable expenses={expenses} />
                     ) : (
-                        <div className="py-20 flex flex-col items-center gap-4 bg-white/50 rounded-3xl border border-dashed border-slate-200">
-                            <FileText className="w-12 h-12 text-slate-200" />
+                        <div className="py-20 flex flex-col items-center gap-4 bg-card/50 rounded-3xl border border-dashed border-slate-200 dark:border-border">
+                            <FileText className="w-12 h-12 text-slate-200 dark:text-slate-700" />
                             <p className="text-slate-400 font-medium text-center">
                                 {hasFiltered ? "Nenhum dado encontrado para o período." : "Selecione o período para visualizar os gastos."}
                             </p>

@@ -15,13 +15,13 @@ export function SummarySection({ year, month, overrideSummary }: Props) {
 
     if (loading || !data) {
         return (
-            <div className="w-full border-b border-gray-200 bg-[#F3F3FB]">
+            <div className="w-full border-b border-gray-200 dark:border-border bg-page-alt">
                 <div className="max-w-7xl mx-auto px-6 py-8">
-                    <div className="h-6 w-24 bg-gray-200 animate-pulse mb-4 rounded" />
+                    <div className="h-6 w-24 bg-gray-200 dark:bg-muted animate-pulse mb-4 rounded" />
                     <div className="grid grid-cols-3 gap-6">
-                        <div className="h-32 rounded-xl bg-gray-200 animate-pulse" />
-                        <div className="h-32 rounded-xl bg-gray-200 animate-pulse" />
-                        <div className="h-32 rounded-xl bg-gray-200 animate-pulse" />
+                        <div className="h-32 rounded-xl bg-gray-200 dark:bg-muted animate-pulse" />
+                        <div className="h-32 rounded-xl bg-gray-200 dark:bg-muted animate-pulse" />
+                        <div className="h-32 rounded-xl bg-gray-200 dark:bg-muted animate-pulse" />
                     </div>
                 </div>
             </div>
@@ -33,11 +33,11 @@ export function SummarySection({ year, month, overrideSummary }: Props) {
     const { income, expense, balance } = summary;
 
     return (
-        <section className="w-full border-b border-gray-200 bg-[#F3F3FB]">
+        <section className="w-full border-b border-gray-200 dark:border-border bg-page-alt">
 
             <div className="max-w-7xl mx-auto px-6 py-8">
 
-                <h2 className="text-xl font-bold text-gray-500 mb-4">
+                <h2 className="text-xl font-bold text-gray-500 dark:text-slate-400 mb-4">
                     Resumo
                 </h2>
 
