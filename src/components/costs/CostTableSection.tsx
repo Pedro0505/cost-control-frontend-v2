@@ -59,10 +59,10 @@ export function CostTableSection({ year, month, onSummaryUpdate }: Props) {
     }
 
     return (
-        <section className="w-full bg-[#F1F2F9] pb-10">
+        <section className="w-full bg-page pb-10">
             <div className="max-w-7xl mx-auto px-6">
-                <h2 className="text-xl font-bold text-gray-700 mb-4">Tabela de Gastos</h2>
-                <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
+                <h2 className="text-xl font-bold text-gray-700 dark:text-slate-200 mb-4">Tabela de Gastos</h2>
+                <div className="bg-card rounded-xl shadow-sm border overflow-hidden">
                     <Table>
                         <TableHeader>
                             <TableRow>
@@ -130,10 +130,10 @@ export function CostTableSection({ year, month, onSummaryUpdate }: Props) {
                                             </TableCell>
                                             <TableCell className="text-right space-x-2">
                                                 <Button size="icon" variant="ghost" onClick={() => handleSave(cost.id)}>
-                                                    <Check className="w-4 h-4 text-green-600" />
+                                                    <Check className="w-4 h-4 text-green-600 dark:text-green-400" />
                                                 </Button>
                                                 <Button size="icon" variant="ghost" onClick={() => { setEditingId(null); setEditForm(null); }}>
-                                                    <X className="w-4 h-4 text-red-600" />
+                                                    <X className="w-4 h-4 text-red-600 dark:text-red-400" />
                                                 </Button>
                                             </TableCell>
                                         </>
@@ -153,7 +153,7 @@ export function CostTableSection({ year, month, onSummaryUpdate }: Props) {
                                                     <Pencil className="w-4 h-4" />
                                                 </Button>
                                                 <Button size="icon" variant="ghost" onClick={() => remove(cost.id, onSummaryUpdate)}>
-                                                    <Trash2 className="w-4 h-4 text-red-500" />
+                                                    <Trash2 className="w-4 h-4 text-red-500 dark:text-red-400" />
                                                 </Button>
                                             </TableCell>
                                         </>

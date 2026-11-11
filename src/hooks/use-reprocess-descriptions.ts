@@ -2,6 +2,7 @@ import { useState } from "react";
 import { creditCardService } from "@/services/credit-card-service";
 import { toast } from "sonner";
 import { ApiError } from "@/types/axios";
+import { clearRulesChanged } from "@/utils/description-mapping-utils";
 
 export function useReprocessDescriptions(onSuccess?: () => void) {
     const [isReprocessing, setIsReprocessing] = useState(false);
@@ -10,6 +11,7 @@ export function useReprocessDescriptions(onSuccess?: () => void) {
         setIsReprocessing(true);
         try {
             await creditCardService.reprocessDescriptions();
+            clearRulesChanged();
             toast.success("Reprocessamento concluído");
             if (onSuccess) onSuccess();
         } catch (err: unknown) {

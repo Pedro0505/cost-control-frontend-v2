@@ -5,7 +5,7 @@ export interface CreditCardExpenseDetail {
 }
 
 export interface CreditCardExpenseGrouped {
-    normalizedDescription: string;
+    normalizedDescription: string | null;
     totalAmount: number;
     expensesDetails: CreditCardExpenseDetail[];
 }

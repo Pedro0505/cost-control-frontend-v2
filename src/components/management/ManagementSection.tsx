@@ -93,14 +93,14 @@ export function ManagementSection() {
     const isContractLoading = pjLoading || cltLoading;
 
     return (
-        <section className="w-full bg-[#F1F2F9] pb-10">
+        <section className="w-full bg-page pb-10">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
 
                     {/* Card de Contratos */}
-                    <div className="p-8 bg-white rounded-xl shadow-sm border flex flex-col min-h-[720px]">
+                    <div className="p-8 bg-card rounded-xl shadow-sm border flex flex-col min-h-[720px]">
                         <div className="flex-1 flex flex-col">
-                            <h3 className="text-lg font-bold text-gray-700 mb-6 text-center">Cadastrar Contrato</h3>
+                            <h3 className="text-lg font-bold text-gray-700 dark:text-slate-200 mb-6 text-center">Cadastrar Contrato</h3>
 
                             <div className="space-y-4 mb-8">
                                 <div className="space-y-2">
@@ -176,25 +176,25 @@ export function ManagementSection() {
                                 </div>
                             </div>
 
-                            <div className="pt-6 border-t border-gray-100 flex-1 flex flex-col">
-                                <h4 className="text-sm font-bold text-gray-500 mb-4 uppercase">Contratos Cadastrados</h4>
+                            <div className="pt-6 border-t border-gray-100 dark:border-border flex-1 flex flex-col">
+                                <h4 className="text-sm font-bold text-gray-500 dark:text-slate-400 mb-4 uppercase">Contratos Cadastrados</h4>
                                 <div className="flex-1">
                                     <Table>
                                         <TableBody>
                                             {contractData?.content.map((contract) => (
-                                                <TableRow key={contract.id} className="group border-none hover:bg-gray-50/50">
+                                                <TableRow key={contract.id} className="group border-none hover:bg-gray-50/50 dark:hover:bg-muted/40">
                                                     <TableCell className="py-2 pl-0">
                                                         <div className="flex items-center gap-3">
                                                             <FileText className="w-4 h-4 text-blue-500" />
                                                             <div className="flex flex-col">
-                                                                <span className="font-medium text-gray-700">Contrato {contract.contractType}</span>
+                                                                <span className="font-medium text-gray-700 dark:text-slate-200">Contrato {contract.contractType}</span>
                                                                 <span className="text-[10px] text-gray-400">
                                                                     {formatDateString(contract.initDate)} - {contract.endDate ? formatDateString(contract.endDate) : "Atual"}
                                                                 </span>
                                                             </div>
                                                         </div>
                                                     </TableCell>
-                                                    <TableCell className="py-2 text-right font-bold text-gray-600">
+                                                    <TableCell className="py-2 text-right font-bold text-gray-600 dark:text-slate-300">
                                                         {contract.contractType === "PJ"
                                                             ? `R$ ${contract.hourlyRate?.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}/h`
                                                             : `R$ ${contract.netSalary?.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
@@ -213,9 +213,9 @@ export function ManagementSection() {
                     </div>
 
                     {/* Card de Rendas */}
-                    <div className="p-8 bg-white rounded-xl shadow-sm border flex flex-col min-h-[720px]">
+                    <div className="p-8 bg-card rounded-xl shadow-sm border flex flex-col min-h-[720px]">
                         <div className="flex-1 flex flex-col">
-                            <h3 className="text-lg font-bold text-gray-700 mb-6 text-center">Cadastrar Nova Renda</h3>
+                            <h3 className="text-lg font-bold text-gray-700 dark:text-slate-200 mb-6 text-center">Cadastrar Nova Renda</h3>
                             <div className="space-y-4 mb-8">
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
@@ -269,18 +269,18 @@ export function ManagementSection() {
                                 </div>
                             </div>
 
-                            <div className="pt-6 border-t border-gray-100 flex-1 flex flex-col">
-                                <h4 className="text-sm font-bold text-gray-500 mb-4 uppercase">Rendas Cadastradas</h4>
+                            <div className="pt-6 border-t border-gray-100 dark:border-border flex-1 flex flex-col">
+                                <h4 className="text-sm font-bold text-gray-500 dark:text-slate-400 mb-4 uppercase">Rendas Cadastradas</h4>
                                 <div className="flex-1">
                                     <Table>
                                         <TableBody>
                                             {incomeData?.content.map((income) => (
-                                                <TableRow key={income.id} className="group border-none hover:bg-gray-50/50">
+                                                <TableRow key={income.id} className="group border-none hover:bg-gray-50/50 dark:hover:bg-muted/40">
                                                     <TableCell className="py-2 pl-0">
                                                         <div className="flex flex-col">
-                                                            <span className="font-medium text-gray-700 flex items-center gap-2">
+                                                            <span className="font-medium text-gray-700 dark:text-slate-200 flex items-center gap-2">
                                                                 {income.description}
-                                                                <span className="text-[9px] bg-gray-100 px-1 rounded text-gray-500 font-bold">{income.contractType}</span>
+                                                                <span className="text-[9px] bg-gray-100 dark:bg-muted px-1 rounded text-gray-500 dark:text-slate-400 font-bold">{income.contractType}</span>
                                                             </span>
 
                                                             <div className="flex items-center gap-2 text-[10px] text-gray-400">
@@ -289,7 +289,7 @@ export function ManagementSection() {
                                                                 {income.contractType === "PJ" && income.businessDays != null && (
                                                                     <>
                                                                         <span>•</span>
-                                                                        <span className="bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded-full font-medium">
+                                                                        <span className="bg-blue-50 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 px-1.5 py-0.5 rounded-full font-medium">
                                                                             {income.businessDays} {income.businessDays === 1 ? 'dia útil' : 'dias úteis'}
                                                                         </span>
                                                                     </>
@@ -297,11 +297,11 @@ export function ManagementSection() {
                                                             </div>
                                                         </div>
                                                     </TableCell>
-                                                    <TableCell className="py-2 text-right font-bold text-green-600 whitespace-nowrap">
+                                                    <TableCell className="py-2 text-right font-bold text-green-600 dark:text-green-400 whitespace-nowrap">
                                                         R$ {income.amount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                                                     </TableCell>
                                                     <TableCell className="py-2 text-right w-10">
-                                                        <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-red-500 transition-colors" onClick={() => handleDeleteIncome(income.id)}>
+                                                        <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 dark:text-slate-500 hover:text-red-500 transition-colors" onClick={() => handleDeleteIncome(income.id)}>
                                                             <Trash2 className="h-4 w-4" />
                                                         </Button>
                                                     </TableCell>

@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import { graphService } from "@/services/graph-service";
 import { toast } from "sonner";
 import { EvolutionChartPoint, EvolutionGraphState, ExpenseEvolutionData } from "@/types/expense-graph";
+import { FALLBACK_CATEGORY } from "@/types/description-mapping";
 
 export function useEvolutionGraph() {
     const [loading, setLoading] = useState(false);
@@ -10,7 +11,8 @@ export function useEvolutionGraph() {
         categories: []
     });
 
-    const processData = (rawData: ExpenseEvolutionData[]): EvolutionGraphState => {
+    const processData = (input: ExpenseEvolutionData[]): EvolutionGraphState => {
+        const rawData = input.map(item => ({ ...item, category: item.category ?? FALLBACK_CATEGORY }));
         const uniqueCategories = Array.from(new Set(rawData.map(item => item.category))).slice(0, 8);
 
         const groupedByDate = rawData.reduce<Record<string, EvolutionChartPoint>>((acc, curr) => {

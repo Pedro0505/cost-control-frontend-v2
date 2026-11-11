@@ -1,6 +1,6 @@
 export interface CategoryPercentage {
     month: number;
     year: number;
-    normalizedDescription: string;
+    normalizedDescription: string | null;
     percentage: number;
 }

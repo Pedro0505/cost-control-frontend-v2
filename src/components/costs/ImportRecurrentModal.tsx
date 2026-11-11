@@ -72,22 +72,22 @@ export function ImportRecurrentModal({ onImportSuccess }: { onImportSuccess: () 
                 </DialogHeader>
 
                 <div className="grid grid-cols-11 gap-4 items-center py-6">
-                    <div className="col-span-5 space-y-4 p-4 bg-gray-50 rounded-lg">
-                        <p className="text-xs font-bold uppercase text-gray-500">Origem (Fonte)</p>
+                    <div className="col-span-5 space-y-4 p-4 bg-gray-50 dark:bg-muted/40 rounded-lg">
+                        <p className="text-xs font-bold uppercase text-gray-500 dark:text-slate-400">Origem (Fonte)</p>
                         <PeriodSelector data={data} value={source} onChange={setSource} />
                     </div>
 
                     <div className="col-span-1 flex justify-center">
-                        <ArrowRight className="text-gray-300" />
+                        <ArrowRight className="text-gray-300 dark:text-slate-500" />
                     </div>
 
-                    <div className="col-span-5 space-y-4 p-4 bg-gray-50 rounded-lg">
-                        <p className="text-xs font-bold uppercase text-gray-500">Destino (Alvo)</p>
+                    <div className="col-span-5 space-y-4 p-4 bg-gray-50 dark:bg-muted/40 rounded-lg">
+                        <p className="text-xs font-bold uppercase text-gray-500 dark:text-slate-400">Destino (Alvo)</p>
                         <PeriodSelector data={data} value={target} onChange={setTarget} />
                     </div>
                 </div>
 
-                {isSameDate && <p className="text-xs text-red-500 text-center -mt-4 mb-4">A origem e o destino não podem ser iguais.</p>}
+                {isSameDate && <p className="text-xs text-red-500 dark:text-red-400 text-center -mt-4 mb-4">A origem e o destino não podem ser iguais.</p>}
 
                 <div className="flex justify-center mb-6">
                     <Button onClick={handleSearchSource} disabled={!canSearch || searching} variant="secondary" className="gap-2">

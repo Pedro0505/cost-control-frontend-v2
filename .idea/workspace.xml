@@ -4,23 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d492355-a6fd-4053-909c-39fd8ced7b26" name="Changes" comment="feat: Adicionando página de login e lógicas de autenticação">
-      <change afterPath="$PROJECT_DIR$/src/app/login/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/profile/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/header/HeaderWrapper.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/use-auth.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/proxy.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/auth-service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/shadcn/ui/dropdown-menu.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/auth.ts" afterDir="false" />
+    <list default="true" id="5d492355-a6fd-4053-909c-39fd8ced7b26" name="Changes" comment="feat: Adicionando dias uteis na exibição dos incomes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/credit-card/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/credit-card/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/login/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/costs/CostTableSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/costs/CostTableSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/costs/CreateCostSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/costs/CreateCostSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/costs/ImportRecurrentModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/costs/ImportRecurrentModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/credit-card/CategoryPieChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/credit-card/CategoryPieChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/credit-card/EvolutionLineChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/credit-card/EvolutionLineChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/credit-card/ExpenseTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/credit-card/ExpenseTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/credit-card/InstallmentPieChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/credit-card/InstallmentPieChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/credit-card/InvoiceFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/credit-card/InvoiceFilter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/credit-card/InvoiceUploadCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/credit-card/InvoiceUploadCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/credit-card/TotalInvoiceChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/credit-card/TotalInvoiceChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/filters/MonthYearFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/filters/MonthYearFilter.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/http.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/http.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/management/ManagementSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/management/ManagementSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/summary/SummaryCards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/summary/SummaryCards.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/summary/SummarySection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/summary/SummarySection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/use-evolution-graph.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/use-evolution-graph.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/use-reprocess-descriptions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/use-reprocess-descriptions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/credit-card-percentage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/credit-card-percentage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/credit-card.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/credit-card.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/expense-graph.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/expense-graph.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/error-handler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/error-handler.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +71,7 @@
     &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;js.last.introduce.type&quot;: &quot;CONST&quot;,
-    &quot;last_opened_file_path&quot;: &quot;//wsl.localhost/Ubuntu-20.04/home/pedro/cardapio&quot;,
+    &quot;last_opened_file_path&quot;: &quot;//wsl.localhost/Ubuntu-20.04/home/pedro/pedro-portfolio/pedro-portfolio&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -198,7 +213,23 @@
       <workItem from="1788825692048" duration="91000" />
       <workItem from="1789073932707" duration="1356000" />
       <workItem from="1789161858509" duration="1385000" />
-      <workItem from="1789220567671" duration="1149000" />
+      <workItem from="1789220567671" duration="3997000" />
+      <workItem from="1790630898120" duration="187000" />
+      <workItem from="1790895549807" duration="73000" />
+      <workItem from="1790895636450" duration="11000" />
+      <workItem from="1790895664891" duration="321000" />
+      <workItem from="1791034427848" duration="2642000" />
+      <workItem from="1791048534413" duration="1290000" />
+      <workItem from="1791120272343" duration="789000" />
+      <workItem from="1791323400789" duration="20000" />
+      <workItem from="1791808818989" duration="1903000" />
+      <workItem from="1791837536230" duration="1094000" />
+      <workItem from="1792849884733" duration="921000" />
+      <workItem from="1793787719081" duration="5000" />
+      <workItem from="1793790145615" duration="2105000" />
+      <workItem from="1794015461918" duration="242000" />
+      <workItem from="1794139495943" duration="6591000" />
+      <workItem from="1794150951664" duration="2182000" />
     </task>
     <task id="LOCAL-00001" summary="feat: remove wrong file from git">
       <option name="closed" value="true" />
@@ -256,7 +287,23 @@
       <option name="project" value="LOCAL" />
       <updated>1785669258110</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="feat: Adicionando página de login e lógicas de autenticação">
+      <option name="closed" value="true" />
+      <created>1789251065669</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1789251065669</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat: Adicionando dias uteis na exibição dos incomes">
+      <option name="closed" value="true" />
+      <created>1791039311932</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1791039311932</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -271,14 +318,15 @@
     <MESSAGE value="feat: Adapting import recurrent costs" />
     <MESSAGE value="feat: adicionando graficos pizza com porcentagem para as categorias da fatura" />
     <MESSAGE value="feat: Adicionando página de login e lógicas de autenticação" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Adicionando página de login e lógicas de autenticação" />
+    <MESSAGE value="feat: Adicionando dias uteis na exibição dos incomes" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Adicionando dias uteis na exibição dos incomes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/header/Header.tsx</url>
-          <line>26</line>
+          <line>28</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

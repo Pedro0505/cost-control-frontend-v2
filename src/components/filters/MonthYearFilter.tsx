@@ -79,7 +79,7 @@ export function MonthYearFilter({ onApply }: Props) {
                         setMonth(firstMonth?.value);
                     }}
                 >
-                    <SelectTrigger className="w-28 bg-white">
+                    <SelectTrigger className="w-28 bg-card">
                         <SelectValue placeholder="—" />
                     </SelectTrigger>
                     <SelectContent>
@@ -99,7 +99,7 @@ export function MonthYearFilter({ onApply }: Props) {
                     value={month?.toString()}
                     onValueChange={(v) => setMonth(Number(v))}
                 >
-                    <SelectTrigger className="w-44 bg-white">
+                    <SelectTrigger className="w-44 bg-card">
                         <SelectValue placeholder="—" />
                     </SelectTrigger>
                     <SelectContent>
